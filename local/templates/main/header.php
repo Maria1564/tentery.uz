@@ -44,6 +44,7 @@ $arContacts=GetContacts();
 	<meta name="theme-color" content="#000">
 	<meta name="msapplication-navbutton-color" content="#000">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#000">
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 	<?$APPLICATION->ShowHead();?>
     <title><?$APPLICATION->ShowTitle()?></title>
