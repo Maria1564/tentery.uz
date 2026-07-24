@@ -240,6 +240,26 @@ function offerChange(th)
 				  </div>
 				</div>
 			<?endforeach?>
+			
+			<?if ($price["RATIO_PRICE"]==0):?>
+				<div class="category-form__cost" id="price<?=$actualItem["ID"]?>"><?=GetMessage('RENT_PRICE_REQUEST')?></div>
+			<?else:?>
+				<div class="category-form__cost" id="price<?=$actualItem["ID"]?>"> <?=GetMessage('RENT_FROM')?> <span><?=str_replace(' ', '</span> ', $price['PRINT_RATIO_PRICE'])?></div>
+			<?endif?>
+			<?foreach ($arResult["OFFERS"] as $k=>$arItem):
+				if ($actualItem["ID"]==$arItem["ID"]) continue;
+				$price2 = $arItem['ITEM_PRICES'][$arItem['ITEM_PRICE_SELECTED']];?>
+				<?if ($price2["RATIO_PRICE"]==0):?>
+					<div class="category-form__cost" id="price<?=$arItem["ID"]?>" style="display:none;"><?=GetMessage('RENT_PRICE_REQUEST')?></div>
+				<?else:?>
+					<div class="category-form__cost" id="price<?=$arItem["ID"]?>" style="display:none;"> <?=GetMessage('RENT_FROM')?> <span><?=str_replace(' ', '</span> ', $price2['PRINT_RATIO_PRICE'])?></div>
+				<?endif?>
+			<?endforeach?>
+            <div class="category-form__footer">
+              <button data-fancybox="" data-src="#modal-order" class="button button--blue" onclick="setPropOrder()"><?=GetMessage('RENT_ORDER_BTN')?></button>
+              <?if ($arResult["LINKED"])?>
+			  <a href="<?=$arResult["LINKED"]["URL"]?>" class="category-form__link"><?=$arResult["LINKED"]["NAME"]?></a>
+            </div>
 
 			<div class="category-form__props">
 				<div class="category-form__props-tabs" data-tabs-target=".category-form__props-content">
@@ -421,25 +441,7 @@ function offerChange(th)
               </div>
 		  
 			</div>
-			<?if ($price["RATIO_PRICE"]==0):?>
-				<div class="category-form__cost" id="price<?=$actualItem["ID"]?>"><?=GetMessage('RENT_PRICE_REQUEST')?></div>
-			<?else:?>
-				<div class="category-form__cost" id="price<?=$actualItem["ID"]?>"> <?=GetMessage('RENT_FROM')?> <span><?=str_replace(' ', '</span> ', $price['PRINT_RATIO_PRICE'])?></div>
-			<?endif?>
-			<?foreach ($arResult["OFFERS"] as $k=>$arItem):
-				if ($actualItem["ID"]==$arItem["ID"]) continue;
-				$price2 = $arItem['ITEM_PRICES'][$arItem['ITEM_PRICE_SELECTED']];?>
-				<?if ($price2["RATIO_PRICE"]==0):?>
-					<div class="category-form__cost" id="price<?=$arItem["ID"]?>" style="display:none;"><?=GetMessage('RENT_PRICE_REQUEST')?></div>
-				<?else:?>
-					<div class="category-form__cost" id="price<?=$arItem["ID"]?>" style="display:none;"> <?=GetMessage('RENT_FROM')?> <span><?=str_replace(' ', '</span> ', $price2['PRINT_RATIO_PRICE'])?></div>
-				<?endif?>
-			<?endforeach?>
-            <div class="category-form__footer">
-              <button data-fancybox="" data-src="#modal-order" class="button button--blue" onclick="setPropOrder()"><?=GetMessage('RENT_ORDER_BTN')?></button>
-              <?if ($arResult["LINKED"])?>
-			  <a href="<?=$arResult["LINKED"]["URL"]?>" class="category-form__link"><?=$arResult["LINKED"]["NAME"]?></a>
-            </div>
+			
           </form>
         </div>
       </div>      
