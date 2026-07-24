@@ -1,0 +1,32 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"О компании", 
+		"/about/", 
+		Array(), 
+		Array(), 
+		"false" 
+	),
+	Array(
+		"Оснащение", 
+		"/about/options/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Решения", 
+		"/about/solutions/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Технологии", 
+		"/about/technologies/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

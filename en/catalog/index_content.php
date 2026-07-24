@@ -1,0 +1,3 @@
+<p style="text-align: justify;">
+	 Our company was established in 2023 as a separate division of the Russian company Tentery, which has been operating in the Eurasian and African markets for over 15 years. We are part of a leading company specializing in the production and rental of tent structures, and we are one of the top three companies in the Russian market. The expertise and resources of our parent company allow us to handle the most complex tasks and provide temporary infrastructure for events of any scale.
+</p>

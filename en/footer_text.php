@@ -1,0 +1,1 @@
+«Tentery CA (Tentery Central Asia)». Full-cycle production of frame-tent structures. Sale, rent, delivery, installation, and components in Uzbekistan.

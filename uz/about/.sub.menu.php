@@ -1,0 +1,32 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Biz haqimizda", 
+		"/uz/about/", 
+		Array(), 
+		Array(), 
+		"false" 
+	),
+	Array(
+		"Uskunalar", 
+		"/uz/about/options/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Yechimlar", 
+		"/uz/about/solutions/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Texnologiya", 
+		"/uz/about/technologies/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

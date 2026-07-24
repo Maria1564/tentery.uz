@@ -1,0 +1,3 @@
+<p style="text-align: justify;">
+	 Kompaniyamiz 2023 yilda Evroosiyo va Afrika bozorida 15 yildan ortiq vaqt davomida faoliyat yuritib kelayotgan Rossiyaning "Tentery" kompaniyasining alohida bo'linmasi sifatida ochildi. Biz Rossiya bozorida birinchi uchlikka kiruvchi etakchi chodir konstruktsiyalarini ishlab chiqarish va ijaraga berish kompaniyasining bir qismimiz. Bosh kompaniyaning tajribasi va resurslari bizga eng qiyin vazifalarni hal qilish va har qanday darajadagi tadbir uchun vaqtinchalik infratuzilmani tashkil qilish imkonini beradi.
+</p>

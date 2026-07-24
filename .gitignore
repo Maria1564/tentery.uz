@@ -1,0 +1,104 @@
+# IDE and local OS files
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Local environment and secrets
+.env
+.env.*
+*.local
+secret*
+/bitrix/.settings.php
+/bitrix/php_interface/dbconn.ph*
+/bitrix/php_interface/after_connect*
+/bitrix/license_key.php
+
+# Bitrix runtime data
+/bitrix/cache/
+/bitrix/managed_cache/
+/bitrix/local_cache/
+/bitrix/stack_cache/
+/bitrix/tmp/
+/bitrix/backup/
+/bitrix/html_pages/
+/bitrix/updates/
+/bitrix/otp/
+/bitrix/catalog_export/
+/bitrix/catalog_import/
+/bitrix/php_interface/logs/
+/local/php_interface/logs/
+/local/logs/
+/upload/
+/export_files/
+
+# Hosting and analytics folders
+/cgi-bin/
+/phpmyadmin/
+/awstats/
+/webstat/
+/xhprof/logs/
+
+# Dumps, archives and generated exports
+*.sql
+*.sql.*
+*.zip
+*.zip*
+*.tar
+*.tar*
+*.gz
+*.gz*
+*.tgz
+*.tgz*
+*.rar
+*.enc
+*.enc*
+*.bak
+*.backup
+*.old
+*.tmp
+*.temp
+
+# Logs and generated service files
+*.log
+*.log.*
+*.viminfo
+*.xml
+!/robots.txt
+
+# Documents usually live in Bitrix data/upload
+*.doc
+*.docx
+*.pdf
+*.rtf
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.psd
+*.psb
+*.sketch
+
+# Composer and Node dependencies
+composer.phar
+/vendor/
+/local/vendor/
+node_modules/
+bower_components/
+.grunt/
+.npm/
+
+# Bitrix core should not be stored in this repository
+/bitrix/
+
+# Media is allowed only inside templates/layout sources
+*.mov
+*.mp3
+*.mp4
+!/local/templates/**/*.mov
+!/local/templates/**/*.mp3
+!/local/templates/**/*.mp4
+
+# Local test folders
+/itesc_test/

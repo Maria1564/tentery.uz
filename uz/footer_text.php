@@ -1,0 +1,1 @@
+«Tentery CA (Tentery Central Asia)». To'liq tsiklli ramka-chodir konstruktsiyalarini ishlab chiqarish. O'zbekistonda sotish, ijaraga berish, yetkazib berish, montaj qilish va butlovchi qismlar.

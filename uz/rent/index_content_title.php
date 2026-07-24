@@ -1,0 +1,1 @@
+<h2 class="title title--h2 b-text__title">Chodirlarni<br> ijaraga olish<br> O'zbekistonda</h2>

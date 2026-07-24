@@ -1,0 +1,6 @@
+<?
+$sSectionName = "Sotish";
+$arDirProperties = Array(
+
+);
+?>

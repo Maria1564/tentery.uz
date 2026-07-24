@@ -1,0 +1,115 @@
+# Исключаем настройки PHPStorm, мы в нём работаем
+/.idea/
+
+# Исключаем папку /bitrix кроме некоторых подпапок
+!/bitrix
+/bitrix/*
+
+# оставляем печатные формы интернет-магазина
+!/bitrix/admin/
+/bitrix/admin/*
+!/bitrix/admin/reports/
+
+# оставляем нестандартные компоненты
+!/bitrix/components/
+/bitrix/components/bitrix/
+
+# сохраняем внешние модули
+!/bitrix/modules/
+/bitrix/modules/*/
+!/bitrix/modules/*.*/
+
+
+# сохраняем весь php_interface за редкими исключениями
+!/bitrix/php_interface/
+/bitrix/php_interface/dbconn.ph*
+/bitrix/php_interface/after_connect*
+/bitrix/php_interface/logs/
+
+# сохраняем шаблоны сайта
+!/bitrix/templates/
+
+# исключаем логи
+/local/php_interface/logs/
+/local/logs/
+
+# исключаем загружаемые файлы
+/upload/
+
+# различные системные папки и файлы хостингов и операционных систем
+/cgi-bin/
+/phpmyadmin/
+/awstats/
+/webstat/
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# архивы, включая многотомные
+*.zip
+*.zip*  
+*.tar
+*.tar*
+*.enc
+*.enc*
+*.gz
+*.gz*
+*.tgz
+*.tgz*
+*.sql
+*.rar
+.hg
+.ftpconfig
+
+# документы храним в БД или в папке upload
+*.doc
+*.docx
+*.pdf
+*.rtf
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.psd
+*.psb
+*.sketch
+
+# логи не сохраняем
+*.viminfo
+*.log
+*.xml
+*.txt
+
+# храним robots.txt
+!/robots.txt
+
+# аудио и видео только в шаблонах сайтов
+*.mov
+*.mp3
+*.mp4
+!/bitrix/templates/**/*.mov
+!/bitrix/templates/**/*.mp3
+!/bitrix/templates/**/*.mp4
+!/local/templates/**/*.mov
+!/local/templates/**/*.mp3
+!/local/templates/**/*.mp4
+
+# composer
+composer.phar
+/vendor/
+/local/vendor/
+
+# исключаем всякое от node.js
+node_modules
+bower_components
+.grunt
+.npm
+.env
+
+# и логи xhprof напоследок
+/xhprof/logs
+
+# test
+/itesc_test/
