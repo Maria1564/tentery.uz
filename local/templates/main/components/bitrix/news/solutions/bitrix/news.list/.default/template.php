@@ -20,6 +20,11 @@ $this->setFrameMode(true);
 				<?
 				$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
 				$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
+				$announcement = $arItem["PROPERTIES"]["announcement"]["~VALUE"] ?? '';
+				$announcement = $announcement ?: $arItem["PREVIEW_TEXT"];
+				if (is_array($announcement)) {
+					$announcement = implode('', $announcement);
+				}
 				?>
 				<div class="grid__col" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
 					<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="card-solution">
@@ -29,7 +34,7 @@ $this->setFrameMode(true);
 					  <div class="card-solution__content">
 						<h3 class="card-solution__title"><?=$arItem["NAME"]?></h3>
 						<div class="card-solution__txt b-editor">
-							<?=$arItem["PREVIEW_TEXT"]?>
+							<?=$announcement?>
 						  </div>      
 					  </div>     
 					</a>

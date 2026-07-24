@@ -44,7 +44,7 @@ $APPLICATION->SetTitle("Решения");
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"LIST_ACTIVE_DATE_FORMAT" => "",
 		"LIST_FIELD_CODE" => array(0=>"",1=>"",),
-		"LIST_PROPERTY_CODE" => array(0=>"",1=>"",),
+		"LIST_PROPERTY_CODE" => array(0=>"announcement",1=>"",),
 		"MESSAGE_404" => "",
 		"META_DESCRIPTION" => "-",
 		"META_KEYWORDS" => "-",

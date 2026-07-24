@@ -187,7 +187,7 @@ $arContacts=GetContacts();
 					</div>
 					<div class="grid__col header__col-bar">
 						<div class="header__phone-btn">
-							<button data-fancybox="" data-src="#modal-call" class="button-icon"><svg><use href="#icon-phone"></use></svg></button>
+							<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="button-icon" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>" aria-label="<?=$arContacts["phones"][0]?>"><svg><use href="#icon-phone"></use></svg></a>
 						</div>
 						<button class="button-bar button-bar__open header__bar js-toggleMenu">
 							<span></span>
