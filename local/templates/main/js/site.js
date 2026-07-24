@@ -15,6 +15,30 @@ window.addEventListener('resize', set_100vh_var);
 window.addEventListener('orientationchange', set_100vh_var);
 setTimeout( set_100vh_var, 50);
 
+const setSingleCategoryCardHeight = () => {
+    const card = document.querySelector('.single-categories-content .category-form');
+    if (!card) return;
+
+    if (window.matchMedia('(max-width: 1024px)').matches) {
+        card.style.removeProperty('--single-category-card-height');
+        return;
+    }
+
+    const rect = card.getBoundingClientRect();
+    const bottomGap = 16;
+    const minHeight = 320;
+    const availableHeight = Math.max(minHeight, window.innerHeight - Math.max(rect.top, 0) - bottomGap);
+
+    card.style.setProperty('--single-category-card-height', `${availableHeight}px`);
+};
+
+window.addEventListener('resize', setSingleCategoryCardHeight);
+window.addEventListener('orientationchange', setSingleCategoryCardHeight);
+window.addEventListener('scroll', setSingleCategoryCardHeight, { passive: true });
+window.addEventListener('load', setSingleCategoryCardHeight);
+document.addEventListener('DOMContentLoaded', setSingleCategoryCardHeight);
+setTimeout(setSingleCategoryCardHeight, 100);
+
 Fancybox.bind('[data-fancybox]', {
     on: {
         done: function(fancybox, slide) {
