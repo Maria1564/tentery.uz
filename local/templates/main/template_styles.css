@@ -2651,10 +2651,20 @@ a.footer__mail:hover {
 
 .single-categories-content .b-text__col-l {
   max-width: 700px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-bottom: 20px;
 }
 
 .single-categories-content .b-text__col-r {
   margin-left: auto;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-bottom: 20px;
 }
 .single-categories .page-header .title {
   margin-top: 20px;
@@ -3434,12 +3444,20 @@ a.footer__mail:hover {
 
   .single-categories-content .b-text__col-r {
     order: -1;
+    max-height: none;
+    overflow-y: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
 
   .single-categories-content .b-text__col-l {
     max-width: 999px;
     order: -1;
     margin-bottom: 25px;
+    max-height: none;
+    overflow-y: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
   }
 
   .category-form {
