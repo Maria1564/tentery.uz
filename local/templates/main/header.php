@@ -126,7 +126,7 @@ $arContacts=GetContacts();
 						);?>
 						<div class="header__sidebar-footer">
 							<div class="header__address-mobile"><?=$arContacts["manufacturer_address"]?></div>
-							<a href="tel://+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
+							<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
 							<div class="header__mail">
 							    <?if (count($arContacts["email"]) > 1):?>
 							        <button class="header__mailTitle header__mailTitle-sub"><?=$arContacts["email"][0]?></button>
@@ -160,7 +160,7 @@ $arContacts=GetContacts();
 					);
 					?>
 					<div class="grid__col header__col-contacts">
-						<a href="tel://+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone header__phone" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
+						<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone header__phone" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
 						<div class="header__buttons">
 							<div class="header__buttonsItem">
 								<button data-fancybox="" data-src="#modal-call" class="button-icon"><svg><use href="#icon-phone"></use></svg></button>
@@ -178,7 +178,7 @@ $arContacts=GetContacts();
 								<div class="header__buttonsDrop">
 									<ul class="header__buttonsDescribe">
 										<?foreach($arContacts["email"] as $k=>$email):?>
-											<li><a href="mailto://<?=$email?>"><span><?=$email?></span> <?=$arContacts["email_desc"][$k]?></a></li>
+											<li><a href="mailto:<?=$email?>"><span><?=$email?></span> <?=$arContacts["email_desc"][$k]?></a></li>
 										<?endforeach?>
 									</ul>
 								</div>

@@ -44,12 +44,12 @@ function ShowProps($arProp)
 							$arProperty["DESCRIPTION"][$k]= preg_replace('/\@([A-Za-z_\-]+)/', '<a href="https://t.me/$1" target="__blank">@$1</a>', $arProperty["DESCRIPTION"][$k]);
 						}
 							
-						$v='<a href="tel://+'.only_numbers($v).'"><b>'.$v.'</b></a>';
+						$v='<a href="tel:+'.only_numbers($v).'"><b>'.$v.'</b></a>';
 						
 					}
 					if ($pid=="email")
 					{
-						$v='<a href="mailto://'.$v.'"><b>'.$v.'</b></a>';
+						$v='<a href="mailto:'.$v.'"><b>'.$v.'</b></a>';
 					}
 					if ($pid=="social")
 					{

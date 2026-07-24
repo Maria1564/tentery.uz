@@ -67,11 +67,11 @@
 						);?>
 						<div class="grid__col footer__col-sidebar">
 							<div class="footer__subcol">
-								<a href="tel://+<?=only_numbers($arContacts["phones"][0])?>" class="footer__phone site-phone"><?=$arContacts["phones"][0]?></a>
+								<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="footer__phone site-phone"><?=$arContacts["phones"][0]?></a>
 								<div class="footer__time"><?=$arContacts["worktime_short"]?></div>								
 							</div>
 							<div class="footer__subcol">
-								<a href="mailto://<?=$arContacts["email"][0]?>" class="footer__mail" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["email"][0]?></a>
+								<a href="mailto:<?=$arContacts["email"][0]?>" class="footer__mail" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["email"][0]?></a>
 								<ul class="footer__addreses">
 									<?foreach($arContacts["addresses"] as $k=>$address):?>
 										<li><?=($arContacts["addresses_desc"][$k] ? $arContacts["addresses_desc"][$k].': ' : '').$address?></li>
