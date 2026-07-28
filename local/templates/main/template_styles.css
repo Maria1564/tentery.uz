@@ -1869,6 +1869,23 @@ a.footer__mail:hover {
   flex-basis: 100%;
 }
 
+.form-default__socials-list {
+  display: flex;
+  gap: 10px;
+}
+
+.form-default__social {
+  flex-grow: 1;
+  height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 .form-default__title {
   margin-bottom: 20px;
   font-size: 12px;
@@ -3420,6 +3437,10 @@ a.footer__mail:hover {
   .category-form {
     padding: 30px 25px;
   }
+
+  .form-section__form {
+    max-width: none;
+  }
 }
 
 @media screen and (max-width: 860px) {
@@ -3797,6 +3818,12 @@ a.footer__mail:hover {
   }
 }
 
+@media screen and (max-width: 520px) {
+  .form-default__container {
+    flex-basis: 100%;
+  }
+}
+
 @media screen and (max-width: 480px) {
   html {
     font-size: 14px;
@@ -3987,18 +4014,12 @@ a.footer__mail:hover {
     padding: 50px 0;
   }
 
-  .form-default__footer button {
-    max-width: 999px;
+  .form-default__socials-list {
+    flex-wrap: wrap;
   }
 
-  .form-default__footer .confidence {
-    margin-top: 20px;
-    max-width: 280px;
-    margin: 20px 0 auto 0;
-  }
-
-  .form-default__footer {
-    flex-direction: column;
+  .form-default__social {
+    flex-basis: 100%;
   }
 
   .categories {
