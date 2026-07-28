@@ -91,33 +91,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 
 				$protect = md5(md5(time()) . "astra7");
 
-				$socialMeta = [
-					'telegram' => [
-						'name' => 'Telegram',
-						'color' => '#419FD9',
-						'icon' => SITE_TEMPLATE_PATH . '/img/social/telegram.svg',
-					],
-					'whatsapp' => [
-						'name' => 'WhatsApp',
-						'color' => '#00D756',
-						'icon' => SITE_TEMPLATE_PATH . '/img/social/whatsapp.svg',
-					],
-					'max' => [
-						'name' => 'MAX',
-						'color' => 'linear-gradient(90deg, #841BF7 0%, #1DB2F9 100%)',
-						'icon' => SITE_TEMPLATE_PATH . '/img/social/max.svg',
-					],
-					'vk' => [
-						'name' => 'VK',
-						'color' => '#0077FF',
-						'icon' => SITE_TEMPLATE_PATH . '/img/social/vk.svg',
-					],
-					'youtube' => [
-						'name' => 'YouTube',
-						'color' => '#C42525',
-						'icon' => SITE_TEMPLATE_PATH . '/img/social/youtube.svg',
-					],
-				];
+				$socialMeta = include $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/inc/social_meta.php";
 
 				$selectedSocials = [
 					['code' => 'telegram', 'url' => 'https://t.me/'],
@@ -129,152 +103,158 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 				?>
 				<div class="form-default form-section__form">
 					<? if (LANGUAGE_ID == 'ru') { ?>
-						<div class="form-default__info">
-							<div class="form-default__container">
-								<h4 class="form-default__title">По номеру телефона</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+						<div class="form-default__wrapper">
+							<div class="form-default__info">
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По номеру телефона</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
 									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
+								</div>
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По электронной почте</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
 									</div>
 								</div>
-								<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
-							</div>
-							<div class="form-default__container">
-								<h4 class="form-default__title">По электронной почте</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-								</div>
-							</div>
-							<div class="form-default__container form-default__container_full">
-								<h4 class="form-default__title">В социальных сетях</h4>
-								<div class="form-default__socials-list">
-									<? foreach ($selectedSocials as $socialItem) {
-										$socialCode = trim((string) ($socialItem['code'] ?? ''));
-										$socialUrl = trim((string) ($socialItem['url'] ?? ''));
+								<div class="form-default__container form-default__container_full">
+									<h4 class="form-default__sub-title">В социальных сетях</h4>
+									<div class="form-default__socials-list">
+										<? foreach ($selectedSocials as $socialItem) {
+											$socialCode = trim((string) ($socialItem['code'] ?? ''));
+											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
 
-										if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-											continue;
-										}
+											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
+												continue;
+											}
 
-										$social = $socialMeta[$socialCode];
-										?>
-										<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-											style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-											rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-											title="<?= htmlspecialcharsbx($social['name']) ?>">
-											<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-										</a>
-									<? } ?>
+											$social = $socialMeta[$socialCode];
+											?>
+											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
+												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
+												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
+												title="<?= htmlspecialcharsbx($social['name']) ?>">
+												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
+											</a>
+										<? } ?>
+									</div>
 								</div>
 							</div>
 						</div>
 					<? } elseif (LANGUAGE_ID == 'en') { ?>
-						<div class="form-default__info">
-							<div class="form-default__container">
-								<h4 class="form-default__title">По номеру телефона</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+						<div class="form-default__wrapper">
+							<div class="form-default__info">
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По номеру телефона</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
 									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
+								</div>
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По электронной почте</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
 									</div>
 								</div>
-								<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
-							</div>
-							<div class="form-default__container">
-								<h4 class="form-default__title">По электронной почте</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-								</div>
-							</div>
-							<div class="form-default__container form-default__container_full">
-								<h4 class="form-default__title">В социальных сетях</h4>
-								<div class="form-default__socials-list">
-									<? foreach ($selectedSocials as $socialItem) {
-										$socialCode = trim((string) ($socialItem['code'] ?? ''));
-										$socialUrl = trim((string) ($socialItem['url'] ?? ''));
+								<div class="form-default__container form-default__container_full">
+									<h4 class="form-default__sub-title">В социальных сетях</h4>
+									<div class="form-default__socials-list">
+										<? foreach ($selectedSocials as $socialItem) {
+											$socialCode = trim((string) ($socialItem['code'] ?? ''));
+											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
 
-										if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-											continue;
-										}
+											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
+												continue;
+											}
 
-										$social = $socialMeta[$socialCode];
-										?>
-										<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-											style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-											rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-											title="<?= htmlspecialcharsbx($social['name']) ?>">
-											<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-										</a>
-									<? } ?>
+											$social = $socialMeta[$socialCode];
+											?>
+											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
+												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
+												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
+												title="<?= htmlspecialcharsbx($social['name']) ?>">
+												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
+											</a>
+										<? } ?>
+									</div>
 								</div>
 							</div>
 						</div>
 					<? } elseif (LANGUAGE_ID == 'uz') { ?>
-						<div class="form-default__info">
-							<div class="form-default__container">
-								<h4 class="form-default__title">По номеру телефона</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+						<div class="form-default__wrapper">
+							<div class="form-default__info">
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По номеру телефона</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">+99 899 864 18 34</a>
+											<span class="form-default__label">Екубов Азизжон</span>
+										</div>
 									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">+99 899 864 18 34</a>
-										<span class="form-default__label">Екубов Азизжон</span>
+									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
+								</div>
+								<div class="form-default__container">
+									<h4 class="form-default__sub-title">По электронной почте</h4>
+									<div class="form-default__links">
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
+										<div class="form-default__links-item">
+											<a href="" class="form-default__link">info@tentery.uz</a>
+										</div>
 									</div>
 								</div>
-								<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
-							</div>
-							<div class="form-default__container">
-								<h4 class="form-default__title">По электронной почте</h4>
-								<div class="form-default__links">
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-									<div class="form-default__links-item">
-										<a href="" class="form-default__link">info@tentery.uz</a>
-									</div>
-								</div>
-							</div>
-							<div class="form-default__container form-default__container_full">
-								<h4 class="form-default__title">В социальных сетях</h4>
-								<div class="form-default__socials-list">
-									<? foreach ($selectedSocials as $socialItem) {
-										$socialCode = trim((string) ($socialItem['code'] ?? ''));
-										$socialUrl = trim((string) ($socialItem['url'] ?? ''));
+								<div class="form-default__container form-default__container_full">
+									<h4 class="form-default__sub-title">В социальных сетях</h4>
+									<div class="form-default__socials-list">
+										<? foreach ($selectedSocials as $socialItem) {
+											$socialCode = trim((string) ($socialItem['code'] ?? ''));
+											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
 
-										if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-											continue;
-										}
+											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
+												continue;
+											}
 
-										$social = $socialMeta[$socialCode];
-										?>
-										<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-											style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-											rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-											title="<?= htmlspecialcharsbx($social['name']) ?>">
-											<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-										</a>
-									<? } ?>
+											$social = $socialMeta[$socialCode];
+											?>
+											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
+												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
+												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
+												title="<?= htmlspecialcharsbx($social['name']) ?>">
+												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
+											</a>
+										<? } ?>
+									</div>
 								</div>
 							</div>
 						</div>

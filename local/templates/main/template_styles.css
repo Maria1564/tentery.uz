@@ -1754,7 +1754,6 @@ a.footer__mail:hover {
   padding: 0;
   width: 100%;
   max-width: 780px;
-  height: 750px;
   max-height: 94vh;
   background: #F2F6F9;
   overflow: hidden;
@@ -1793,7 +1792,6 @@ a.footer__mail:hover {
   border-radius: 16px;
   max-width: 778px;
   width: 100%;
-  padding: 75px 50px;
 }
 
 .form-section__content {
@@ -1844,12 +1842,25 @@ a.footer__mail:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* padding: 45px 80px; */
+  padding: 60px 20px;
 }
 
+.form-default__title {
+  align-self: start;
+  font-size: 40px;
+  font-weight: 500;
+  color: #0A1F34;
+}
+
+.form-default__wrapper {
+    max-width: 581px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .form-default__info {
-  max-width: 581px;
+
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -1886,7 +1897,7 @@ a.footer__mail:hover {
 }
 
 
-.form-default__title {
+.form-default__sub-title {
   margin-bottom: 20px;
   font-size: 12px;
   font-weight: 500;
