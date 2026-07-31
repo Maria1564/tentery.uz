@@ -136,4 +136,76 @@ $APPLICATION->SetTitle("Склады");
 		</div>
 	</div>
 </section>
+<section class="warehouse__section">
+	<div class="grid">
+		<h2 class="warehouse__title">Размеры и цены</h2>
+		<div class="warehouse-prices__list">
+			<? $APPLICATION->IncludeComponent(
+				"bitrix:catalog.section",
+				"warehouse_prices",
+				array(
+					"IBLOCK_TYPE" => "catalog",
+					"IBLOCK_ID" => "4",
+					"SECTION_ID" => "",
+					"SECTION_CODE" => "",
+					"SECTION_USER_FIELDS" => array(),
+					"ELEMENT_SORT_FIELD" => "SORT",
+					"ELEMENT_SORT_ORDER" => "ASC",
+					"ELEMENT_SORT_FIELD2" => "NAME",
+					"ELEMENT_SORT_ORDER2" => "ASC",
+					"FILTER_NAME" => "",
+					"INCLUDE_SUBSECTIONS" => "Y",
+					"SHOW_ALL_WO_SECTION" => "Y",
+					"PAGE_ELEMENT_COUNT" => "4",
+					"LINE_ELEMENT_COUNT" => "4",
+
+					"FIELD_CODE" => array(
+						"PREVIEW_TEXT",
+						"PREVIEW_PICTURE",
+					),
+					"PROPERTY_CODE" => array(
+						"square",
+					),
+
+					"OFFERS_FIELD_CODE" => array(),
+					"OFFERS_PROPERTY_CODE" => array(),
+					"OFFERS_SORT_FIELD" => "sort",
+					"OFFERS_SORT_ORDER" => "asc",
+					"OFFERS_SORT_FIELD2" => "id",
+					"OFFERS_SORT_ORDER2" => "desc",
+
+					"PRICE_CODE" => array(
+						"BASE",
+					),
+					"USE_PRICE_COUNT" => "N",
+					"SHOW_PRICE_COUNT" => "1",
+					"PRICE_VAT_INCLUDE" => "Y",
+					"CONVERT_CURRENCY" => "N",
+
+					"BASKET_URL" => "/personal/basket.php",
+					"ACTION_VARIABLE" => "action",
+					"PRODUCT_ID_VARIABLE" => "id",
+					"PRODUCT_QUANTITY_VARIABLE" => "quantity",
+					"PRODUCT_PROPS_VARIABLE" => "prop",
+					"CACHE_TYPE" => "A",
+					"CACHE_TIME" => "36000000",
+					"CACHE_GROUPS" => "N",
+					"CACHE_FILTER" => "N",
+					"DISPLAY_COMPARE" => "N",
+
+					"SET_TITLE" => "N",
+					"SET_BROWSER_TITLE" => "N",
+					"SET_META_KEYWORDS" => "N",
+					"SET_META_DESCRIPTION" => "N",
+					"ADD_SECTIONS_CHAIN" => "N",
+					"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+
+					"DISPLAY_TOP_PAGER" => "N",
+					"DISPLAY_BOTTOM_PAGER" => "N",
+					"PAGER_TEMPLATE" => ".default",
+				)
+			); ?>
+		</div>
+	</div>
+</section>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

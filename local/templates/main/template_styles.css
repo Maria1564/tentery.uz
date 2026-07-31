@@ -2732,6 +2732,11 @@ a.footer__mail:hover {
   height: 100%;
 }
 
+.warehouse-prices__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .contacts-info__col {
   width: 33.33%;
   margin-bottom: 20px;
