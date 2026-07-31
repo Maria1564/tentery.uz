@@ -2720,6 +2720,18 @@ a.footer__mail:hover {
   gap: 20px;
 }
 
+.warehouse-video__wrapper {
+  width: 100%;
+  height: 705px;
+  padding-bottom: 0;
+  display: block;
+}
+
+.warehouse-video__img {
+  width: 100%;
+  height: 100%;
+}
+
 .contacts-info__col {
   width: 33.33%;
   margin-bottom: 20px;

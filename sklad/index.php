@@ -121,4 +121,19 @@ $APPLICATION->SetTitle("Склады");
 		</div>
 	</div>
 </section>
+<section class="warehouse__section">
+	<div class="grid">
+		<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox-video=""
+			data-src="#promo">
+			<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/bg-video.png" class="warehouse-video__img" alt=""
+				loading="lazy">
+			<button class="button-video about__btn-video"></button>
+		</a>
+		<div id="promo" style="display: none;">
+			<iframe width="900" height="506" src="https://www.youtube.com/embed/VIDEO_ID" title="Video" frameborder="0"
+				allowfullscreen>
+			</iframe>
+		</div>
+	</div>
+</section>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

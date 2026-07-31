@@ -66,8 +66,19 @@ Fancybox.bind('[data-fancybox-video]', {
             }
         },
         close: (fancybox) => {
-            document.querySelector("#promo video").pause();  
-			console.log("close");
+            const promoVideo = document.querySelector("#promo video");
+            const promoIframe = document.querySelector("#promo iframe");
+
+            if (promoVideo) {
+                promoVideo.pause();
+            }
+
+            if (promoIframe) {
+                const iframeSrc = promoIframe.src;
+                promoIframe.src = '';
+                promoIframe.src = iframeSrc;
+            }
+
 			let body = document.querySelector('body');
             body.classList.remove('body-lock');
             body.style.paddingRight = '0px'; 			
