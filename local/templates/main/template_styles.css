@@ -1862,10 +1862,10 @@ a.footer__mail:hover {
 }
 
 .form-default__wrapper {
-    max-width: 581px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  max-width: 581px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-default__info {
@@ -2655,7 +2655,7 @@ a.footer__mail:hover {
 }
 
 .card-technologies__advantages {
-   margin-top: 30px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px 10px;
@@ -2698,6 +2698,26 @@ a.footer__mail:hover {
   font-size: 11px;
   line-height: 120%;
   color: #5F7890;
+}
+
+.warehouse__section {
+  margin-top: 120px;
+}
+
+.warehouse__title {
+  margin-bottom: 68px;
+  text-align: start;
+  font-weight: 500;
+  font-size: 64px;
+  line-height: 110%;
+  color: #0A1F34;
+}
+
+
+.warehouse-options__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .contacts-info__col {
