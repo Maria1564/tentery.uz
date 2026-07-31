@@ -1,4 +1,5 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
+	die();
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -16,25 +17,71 @@ $this->setFrameMode(true);
 <!-- technologies -->
 <section class="technologies" id="technologies">
 	<div class="grid">
-		<?foreach($arResult["ITEMS"] as $arItem):?>
+		<? foreach ($arResult["ITEMS"] as $arItem): ?>
 			<?
 			$this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
 			$this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
 			?>
-			<div class="card-technologies" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
-				<?if (is_array($arItem["PREVIEW_PICTURE"])):?>
+			<div class="card-technologies" id="<?= $this->GetEditAreaId($arItem['ID']); ?>">
+				<? if (is_array($arItem["PREVIEW_PICTURE"])): ?>
 					<div class="card-technologies__img">
-						 <img src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" width="<?=$arItem["PREVIEW_PICTURE"]["WIDTH"]?>" height="<?=$arItem["PREVIEW_PICTURE"]["HEIGHT"]?>" alt="<?=$arItem["PREVIEW_PICTURE"]["ALT"]?>" title="<?=$arItem["PREVIEW_PICTURE"]["TITLE"]?>" loading="lazy" />
+						<img src="<?= $arItem["PREVIEW_PICTURE"]["SRC"] ?>" width="<?= $arItem["PREVIEW_PICTURE"]["WIDTH"] ?>"
+							height="<?= $arItem["PREVIEW_PICTURE"]["HEIGHT"] ?>" alt="<?= $arItem["PREVIEW_PICTURE"]["ALT"] ?>"
+							title="<?= $arItem["PREVIEW_PICTURE"]["TITLE"] ?>" loading="lazy" />
 					</div>
-				<?endif?>
+				<? endif ?>
 				<div class="card-technologies__content">
-					<h3 class="card-technologies__title"><?=$arItem['NAME']?></h3>
+					<h3 class="card-technologies__title"><?= $arItem['NAME'] ?></h3>
 					<div class="card-technologies__txt b-editor">
-						<?=$arItem["PREVIEW_TEXT"]?>
+						<?= $arItem["PREVIEW_TEXT"] ?>
+					</div>
+
+					<div class="card-technologies__advantages">
+						<div class="advantage">
+							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
+							<h4 class="advantage__title">Проектирование
+								тентов</h4>
+							<p class="advantage__description">
+								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
+							</p>
+						</div>
+						<div class="advantage">
+							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
+							<h4 class="advantage__title">Проектирование
+								тентов</h4>
+							<p class="advantage__description">
+								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
+							</p>
+						</div>
+						<div class="advantage">
+							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
+							<h4 class="advantage__title">Проектирование
+								тентов</h4>
+							<p class="advantage__description">
+								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
+							</p>
+						</div>
+						<div class="advantage">
+							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
+							<h4 class="advantage__title">Проектирование
+								тентов</h4>
+							<p class="advantage__description">
+								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
+							</p>
+						</div>
+						<div class="advantage">
+							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
+							<h4 class="advantage__title">Проектирование
+								тентов</h4>
+							<p class="advantage__description">
+								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
+							</p>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		<?endforeach?>
+		<? endforeach ?>
 	</div>
 </section>
 <!-- \ technologies -->

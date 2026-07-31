@@ -67,7 +67,7 @@ $arContacts=GetContacts();
 </head>
 	<div id="panel"><?// $APPLICATION->ShowPanel();?></div>
 <body class="<?$APPLICATION->ShowProperty("page-class","page-contacts");?>">
-	<div id="admin-panel"<?if($USER->IsAdmin()):?> style="margin-top: 100px;" class="active-panel"<?endif?>><?$APPLICATION->ShowPanel();?></div>
+	<div id="admin-panel"<?if($USER->IsAdmin()):?> class="active-panel"<?endif?>><?$APPLICATION->ShowPanel();?></div>
 	<!-- centerlayer -->
 	<div class="centerlayer">
 		<?php include  $_SERVER["DOCUMENT_ROOT"].SITE_TEMPLATE_PATH."/inc/svg_top.php" ?>

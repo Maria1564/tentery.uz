@@ -91,174 +91,70 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 
 				$protect = md5(md5(time()) . "astra7");
 
-				$socialMeta = include $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/inc/social_meta.php";
-
-				$selectedSocials = [
-					['code' => 'telegram', 'url' => 'https://t.me/'],
-					['code' => 'whatsapp', 'url' => 'https://wa.me/'],
-					['code' => 'max', 'url' => 'https://max.im/'],
-					['code' => 'vk', 'url' => 'https://vk.com/'],
-					['code' => 'youtube', 'url' => 'https://www.youtube.com/'],
+				$formContacts = include $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/inc/form_contacts.php";
+				$formContactLabels = [
+					'ru' => [
+						'phone' => 'По номеру телефона',
+						'email' => 'По электронной почте',
+						'socials' => 'В социальных сетях',
+					],
+					'en' => [
+						'phone' => 'By phone',
+						'email' => 'By email',
+						'socials' => 'On social media',
+					],
+					'uz' => [
+						'phone' => 'Telefon orqali',
+						'email' => 'Elektron pochta orqali',
+						'socials' => 'Ijtimoiy tarmoqlarda',
+					],
 				];
+				$formContactText = $formContactLabels[LANGUAGE_ID] ?? $formContactLabels['ru'];
 				?>
 				<div class="form-default form-section__form">
-					<? if (LANGUAGE_ID == 'ru') { ?>
-						<div class="form-default__wrapper">
-							<div class="form-default__info">
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По номеру телефона</h4>
-									<div class="form-default__links">
+					<div class="form-default__wrapper">
+						<div class="form-default__info">
+							<div class="form-default__container">
+								<h4 class="form-default__sub-title"><?= htmlspecialcharsbx($formContactText['phone']) ?></h4>
+								<div class="form-default__links">
+									<? foreach ($formContacts['phones'] as $phone) { ?>
 										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
+											<a href="<?= htmlspecialcharsbx($phone['href']) ?>" class="form-default__link"><?= htmlspecialcharsbx($phone['value']) ?></a>
+											<? if ($phone['label'] !== '') { ?>
+												<span class="form-default__label"><?= htmlspecialcharsbx($phone['label']) ?></span>
+											<? } ?>
 										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
-										</div>
-									</div>
-									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
+									<? } ?>
 								</div>
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По электронной почте</h4>
-									<div class="form-default__links">
+								<? if ($formContacts['worktime'] !== '') { ?>
+									<span class="form-default__detail"><?= htmlspecialcharsbx($formContacts['worktime']) ?></span>
+								<? } ?>
+							</div>
+							<div class="form-default__container">
+								<h4 class="form-default__sub-title"><?= htmlspecialcharsbx($formContactText['email']) ?></h4>
+								<div class="form-default__links">
+									<? foreach ($formContacts['emails'] as $email) { ?>
 										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
+											<a href="<?= htmlspecialcharsbx($email['href']) ?>" class="form-default__link"><?= htmlspecialcharsbx($email['value']) ?></a>
 										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
-										</div>
-									</div>
+									<? } ?>
 								</div>
-								<div class="form-default__container form-default__container_full">
-									<h4 class="form-default__sub-title">В социальных сетях</h4>
-									<div class="form-default__socials-list">
-										<? foreach ($selectedSocials as $socialItem) {
-											$socialCode = trim((string) ($socialItem['code'] ?? ''));
-											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
-
-											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-												continue;
-											}
-
-											$social = $socialMeta[$socialCode];
-											?>
-											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-												title="<?= htmlspecialcharsbx($social['name']) ?>">
-												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-											</a>
-										<? } ?>
-									</div>
+							</div>
+							<div class="form-default__container form-default__container_full">
+								<h4 class="form-default__sub-title"><?= htmlspecialcharsbx($formContactText['socials']) ?></h4>
+								<div class="form-default__socials-list">
+									<? foreach ($formContacts['socials'] as $social) { ?>
+										<a href="<?= htmlspecialcharsbx($social['url']) ?>" class="form-default__social"
+											style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
+											rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
+											title="<?= htmlspecialcharsbx($social['name']) ?>">
+											<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
+										</a>
+									<? } ?>
 								</div>
 							</div>
 						</div>
-					<? } elseif (LANGUAGE_ID == 'en') { ?>
-						<div class="form-default__wrapper">
-							<div class="form-default__info">
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По номеру телефона</h4>
-									<div class="form-default__links">
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
-										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
-										</div>
-									</div>
-									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
-								</div>
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По электронной почте</h4>
-									<div class="form-default__links">
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
-										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
-										</div>
-									</div>
-								</div>
-								<div class="form-default__container form-default__container_full">
-									<h4 class="form-default__sub-title">В социальных сетях</h4>
-									<div class="form-default__socials-list">
-										<? foreach ($selectedSocials as $socialItem) {
-											$socialCode = trim((string) ($socialItem['code'] ?? ''));
-											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
-
-											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-												continue;
-											}
-
-											$social = $socialMeta[$socialCode];
-											?>
-											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-												title="<?= htmlspecialcharsbx($social['name']) ?>">
-												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-											</a>
-										<? } ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					<? } elseif (LANGUAGE_ID == 'uz') { ?>
-						<div class="form-default__wrapper">
-							<div class="form-default__info">
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По номеру телефона</h4>
-									<div class="form-default__links">
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
-										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">+99 899 864 18 34</a>
-											<span class="form-default__label">Екубов Азизжон</span>
-										</div>
-									</div>
-									<span class="form-default__detail">Ежедневно: с 08:00 до 20:00</span>
-								</div>
-								<div class="form-default__container">
-									<h4 class="form-default__sub-title">По электронной почте</h4>
-									<div class="form-default__links">
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
-										</div>
-										<div class="form-default__links-item">
-											<a href="" class="form-default__link">info@tentery.uz</a>
-										</div>
-									</div>
-								</div>
-								<div class="form-default__container form-default__container_full">
-									<h4 class="form-default__sub-title">В социальных сетях</h4>
-									<div class="form-default__socials-list">
-										<? foreach ($selectedSocials as $socialItem) {
-											$socialCode = trim((string) ($socialItem['code'] ?? ''));
-											$socialUrl = trim((string) ($socialItem['url'] ?? ''));
-
-											if ($socialCode === '' || $socialUrl === '' || !isset($socialMeta[$socialCode])) {
-												continue;
-											}
-
-											$social = $socialMeta[$socialCode];
-											?>
-											<a href="<?= htmlspecialcharsbx($socialUrl) ?>" class="form-default__social"
-												style="background: <?= htmlspecialcharsbx($social['color']) ?>" target="_blank"
-												rel="noopener" aria-label="<?= htmlspecialcharsbx($social['name']) ?>"
-												title="<?= htmlspecialcharsbx($social['name']) ?>">
-												<img src="<?= htmlspecialcharsbx($social['icon']) ?>" alt="">
-											</a>
-										<? } ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					<? } ?>
+					</div>
 				</div>
 			</div>
 		</div>
