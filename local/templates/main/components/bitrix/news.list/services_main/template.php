@@ -16,7 +16,9 @@ $this->setFrameMode(true);
 <!-- home-services -->
 <section class="home-services" id="home-services">
   <div class="grid">
-    <h2 class="title title--h2 home-services__title"><?=GetMessage('SERVICES_MAIN_TITLE')?></h2>
+    <?if ($arParams["HIDE_TITLE"] !== "Y"):?>
+      <h2 class="title title--h2 home-services__title"><?=GetMessage('SERVICES_MAIN_TITLE')?></h2>
+    <?endif?>
     <div class="swiper-container home-services__slider">
       <div class="swiper-wrapper">
 		<?foreach($arResult["ITEMS"] as $arItem):?>

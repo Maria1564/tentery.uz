@@ -14,4 +14,5 @@ $MESS["RENT_ORDER_BTN"]="Order";
 $MESS["RENT_FROM"]="from";
 $MESS["RENT_PRICE_REQUEST"]="Price on request";
 $MESS["RENT_OPTIONS_IB"]="19";
+$MESS["RENT_SERVICES_IB"]="23";
 ?>

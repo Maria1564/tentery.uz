@@ -14,3 +14,4 @@ $MESS["RENT_ORDER_BTN"]="Buyurtma";
 $MESS["RENT_FROM"]="dan";
 $MESS["RENT_PRICE_REQUEST"]="Narx so'rov bo'yicha";
 $MESS["RENT_OPTIONS_IB"]="31";
+$MESS["RENT_SERVICES_IB"]="35";
