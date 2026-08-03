@@ -13,6 +13,34 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 //print_r($arResult);
+$warehouseAdvantages = [];
+$warehouseCardIds = array_column($arResult["ITEMS"], "ID");
+
+if (!empty($warehouseCardIds) && CModule::IncludeModule("iblock")) {
+	$advantagesResult = CIBlockElement::GetList(
+		["SORT" => "ASC", "NAME" => "ASC"],
+		[
+			"IBLOCK_ID" => 45,
+			"ACTIVE" => "Y",
+			"PROPERTY_WAREHOUSE_CARD" => $warehouseCardIds,
+		],
+		false,
+		false,
+		["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "PROPERTY_WAREHOUSE_CARD", "PROPERTY_ICON"]
+	);
+
+	while ($advantage = $advantagesResult->GetNext()) {
+		$warehouseCardId = (int) $advantage["PROPERTY_WAREHOUSE_CARD_VALUE"];
+		$icon = [];
+
+		if ((int) $advantage["PROPERTY_ICON_VALUE"] > 0) {
+			$icon = CFile::GetFileArray((int) $advantage["PROPERTY_ICON_VALUE"]);
+		}
+
+		$advantage["ICON"] = $icon;
+		$warehouseAdvantages[$warehouseCardId][] = $advantage;
+	}
+}
 ?>
 <!-- technologies -->
 <section class="technologies" id="technologies">
@@ -36,49 +64,21 @@ $this->setFrameMode(true);
 						<?= $arItem["PREVIEW_TEXT"] ?>
 					</div>
 
-					<div class="card-technologies__advantages">
-						<div class="advantage">
-							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
-							<h4 class="advantage__title">Проектирование
-								тентов</h4>
-							<p class="advantage__description">
-								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
-							</p>
+					<? if (!empty($warehouseAdvantages[$arItem["ID"]])): ?>
+						<div class="card-technologies__advantages">
+							<? foreach ($warehouseAdvantages[$arItem["ID"]] as $advantage): ?>
+								<div class="advantage">
+									<? if (!empty($advantage["ICON"]["SRC"])): ?>
+										<img src="<?= $advantage["ICON"]["SRC"] ?>" alt="<?= $advantage["NAME"] ?>">
+									<? endif ?>
+									<h4 class="advantage__title"><?= $advantage["NAME"] ?></h4>
+									<? if ($advantage["PREVIEW_TEXT"]): ?>
+										<p class="advantage__description"><?= $advantage["PREVIEW_TEXT"] ?></p>
+									<? endif ?>
+								</div>
+							<? endforeach ?>
 						</div>
-						<div class="advantage">
-							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
-							<h4 class="advantage__title">Проектирование
-								тентов</h4>
-							<p class="advantage__description">
-								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
-							</p>
-						</div>
-						<div class="advantage">
-							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
-							<h4 class="advantage__title">Проектирование
-								тентов</h4>
-							<p class="advantage__description">
-								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
-							</p>
-						</div>
-						<div class="advantage">
-							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
-							<h4 class="advantage__title">Проектирование
-								тентов</h4>
-							<p class="advantage__description">
-								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
-							</p>
-						</div>
-						<div class="advantage">
-							<img src="<?=SITE_TEMPLATE_PATH?>/img/advantage-icon.svg" alt="">
-							<h4 class="advantage__title">Проектирование
-								тентов</h4>
-							<p class="advantage__description">
-								Напрямую с производства. Без посредников. Доставка ТК в любую точку России.
-							</p>
-						</div>
-
-					</div>
+					<? endif ?>
 				</div>
 			</div>
 		<? endforeach ?>

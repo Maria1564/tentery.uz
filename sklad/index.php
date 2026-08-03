@@ -4,6 +4,55 @@ $APPLICATION->SetPageProperty("title", "");
 $APPLICATION->SetPageProperty("keywords", "Склады в Узбекистане, Ангары в Узбекистане, Склад или аргар в Ташкенте.");
 $APPLICATION->SetPageProperty("description", "Проектируем, производим и монтируем быстровозводимую инфраструктуру в любой точке Узбекистана. Сборно-разборные решения. Здания с жесткими стенами. Ангары. Мы предложим современные варианты быстровозводимых конструкций, которые будут дешевле и практичнее многих других популярных вариантов.");
 $APPLICATION->SetTitle("Склады");
+$warehouseOptionsIds = array();
+$warehousePriceSectionId = 0;
+$warehouseVideoPicture = SITE_TEMPLATE_PATH . "/img/uploads/bg-video.png";
+$warehouseVideoLink = "https://www.youtube.com/embed/VIDEO_ID";
+
+if (CModule::IncludeModule("iblock")) {
+	$warehouseSettings = CIBlockElement::GetList(
+		array(),
+		array(
+			"IBLOCK_ID" => 46,
+			"ID" => 883,
+			"ACTIVE" => "Y",
+		),
+		false,
+		false,
+		array(
+			"ID",
+			"PROPERTY_WAREHOUSE_OPTIONS",
+			"PROPERTY_WAREHOUSE_PRICE_SECTION",
+			"PROPERTY_WAREHOUSE_VIDEO_PICTURE",
+			"PROPERTY_WAREHOUSE_VIDEO_LINK",
+		)
+	);
+
+	while ($warehouseSetting = $warehouseSettings->Fetch()) {
+		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_OPTIONS_VALUE"] > 0) {
+			$warehouseOptionsIds[] = (int) $warehouseSetting["PROPERTY_WAREHOUSE_OPTIONS_VALUE"];
+		}
+
+		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"] > 0) {
+			$warehousePriceSectionId = (int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"];
+		}
+
+		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_PICTURE_VALUE"] > 0) {
+			$warehouseVideoPictureFile = CFile::GetFileArray((int) $warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_PICTURE_VALUE"]);
+
+			if (!empty($warehouseVideoPictureFile["SRC"])) {
+				$warehouseVideoPicture = $warehouseVideoPictureFile["SRC"];
+			}
+		}
+
+		if (!empty($warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"])) {
+			$warehouseVideoLink = $warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"];
+		}
+	}
+}
+
+$warehouseOptionsIds = array_values(array_unique($warehouseOptionsIds));
+$warehouseOptionsFilter = array("ID" => !empty($warehouseOptionsIds) ? $warehouseOptionsIds : 0);
 ob_start();
 ?>
 <div class="page-header__describe warehouse-header__describe">
@@ -79,13 +128,15 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 		<h2 class="warehouse__title">Опции</h2>
 
 		<div class="warehouse-options__list">
+			<? $warehouseOptionsFilterName = "warehouseOptionsFilter"; ?>
+			<? $GLOBALS[$warehouseOptionsFilterName] = $warehouseOptionsFilter; ?>
 			<? $APPLICATION->IncludeComponent(
 				"bitrix:news.list",
 				"warehouse_options",
 				array(
 					"IBLOCK_TYPE" => "about",
 					"IBLOCK_ID" => "7",
-					"NEWS_COUNT" => "8",
+					"NEWS_COUNT" => count($warehouseOptionsIds) ?: 1,
 
 					"SORT_BY1" => "SORT",
 					"SORT_ORDER1" => "ASC",
@@ -101,8 +152,9 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 					"DETAIL_URL" => "",
 					"CACHE_TYPE" => "A",
 					"CACHE_TIME" => "36000000",
-					"CACHE_FILTER" => "N",
+					"CACHE_FILTER" => "Y",
 					"CACHE_GROUPS" => "N",
+					"FILTER_NAME" => $warehouseOptionsFilterName,
 
 					"DISPLAY_TOP_PAGER" => "N",
 					"DISPLAY_BOTTOM_PAGER" => "N",
@@ -127,12 +179,11 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 	<div class="grid">
 		<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox-video=""
 			data-src="#promo">
-			<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/bg-video.png" class="warehouse-video__img" alt=""
-				loading="lazy">
+			<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt="" loading="lazy">
 			<button class="button-video about__btn-video"></button>
 		</a>
 		<div id="promo" style="display: none;">
-			<iframe width="900" height="506" src="https://www.youtube.com/embed/VIDEO_ID" title="Video" frameborder="0"
+			<iframe width="900" height="506" src="<?= htmlspecialcharsbx($warehouseVideoLink) ?>" title="Video" frameborder="0"
 				allowfullscreen>
 			</iframe>
 		</div>
@@ -148,7 +199,7 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 				array(
 					"IBLOCK_TYPE" => "catalog",
 					"IBLOCK_ID" => "4",
-					"SECTION_ID" => "",
+					"SECTION_ID" => $warehousePriceSectionId ?: "",
 					"SECTION_CODE" => "",
 					"SECTION_USER_FIELDS" => array(),
 					"ELEMENT_SORT_FIELD" => "SORT",
