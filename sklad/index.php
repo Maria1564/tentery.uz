@@ -212,39 +212,41 @@ $APPLICATION->SetTitle("Склады");
 	<div class="grid">
 		<h2 class="warehouse__title">Реализованные проекты</h2>
 
-		<div class="warehouse-gallery__list">
-			<div class="warehouse-gallery__item">
+		<div class="warehouse-gallery__list swiper-container">
+			<div class="warehouse-gallery__wrapper swiper-wrapper">
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</div>
+			</a>
 
-			<div class="warehouse-gallery__item">
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</div>
+			</a>
 
-			<div class="warehouse-gallery__item">
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="warehouse-gallery__item">
+			</a>
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</div>
+			</a>
 
-			<div class="warehouse-gallery__item">
+			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
 				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
+			</a>
 			</div>
 			
 		</div>

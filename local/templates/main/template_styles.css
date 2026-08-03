@@ -2739,6 +2739,10 @@ a.footer__mail:hover {
 }
 
 .warehouse-gallery__list {
+  overflow: hidden;
+}
+
+.warehouse-gallery__wrapper.swiper-wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -2789,7 +2793,7 @@ a.footer__mail:hover {
 }
 
 @media (max-width: 1024px) {
-  .warehouse-gallery__list {
+  .warehouse-gallery__wrapper.swiper-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2845,7 +2849,7 @@ a.footer__mail:hover {
 }
 
 @media (max-width: 640px) {
-  .warehouse-gallery__list {
+  .warehouse-gallery__wrapper.swiper-wrapper {
     grid-template-columns: 1fr;
     gap: 10px;
   }
@@ -2877,6 +2881,11 @@ a.footer__mail:hover {
 }
 
 @media (max-width: 480px) {
+  .warehouse-gallery__wrapper.swiper-wrapper {
+    display: flex;
+    gap: 0;
+  }
+
   .warehouse-gallery__item {
     height: 180px;
   }
