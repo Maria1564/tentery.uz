@@ -512,6 +512,21 @@ a.site-phone:hover {
   padding: 150px 0 70px;
 }
 
+.page-header__body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.page-header__body .title {
+  flex-shrink: 0;
+}
+
+.warehouse-header__describe {
+  max-width: 720px;
+}
+
 .page-header .b-nav {
   margin-top: 20px;
 }
@@ -3714,6 +3729,12 @@ a.footer__mail:hover {
 }
 
 @media screen and (max-width: 860px) {
+
+  .page-header__body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .b-text__row {
     flex-direction: column;
   }
@@ -4120,6 +4141,10 @@ a.footer__mail:hover {
 
   .page-header {
     padding: 100px 0 30px;
+  }
+
+  .page-header__body {
+    display: block;
   }
 
   .page-header__describe {

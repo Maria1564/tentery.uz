@@ -232,7 +232,10 @@ $arContacts=GetContacts();
 						),
 						false
 					);?>
-					<?$APPLICATION->ShowViewContent('h1')?>
+					<div class="page-header__body">
+						<?$APPLICATION->ShowViewContent('h1')?>
+						<?$APPLICATION->ShowViewContent('page_header_description')?>
+					</div>
 					<?//$APPLICATION->ShowViewContent('head_tabs')?>
 					<?$APPLICATION->ShowViewContent('head_tabs_section')?>
 				</div>
