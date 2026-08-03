@@ -208,4 +208,46 @@ $APPLICATION->SetTitle("Склады");
 		</div>
 	</div>
 </section>
+<section class="warehouse__section">
+	<div class="grid">
+		<h2 class="warehouse__title">Реализованные проекты</h2>
+
+		<div class="warehouse-gallery__list">
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
+			</div>
+
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
+			</div>
+
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
+			</div>
+
+			<div class="warehouse-gallery__item">
+				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			
+		</div>
+	</div>
+</section>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
