@@ -102,11 +102,13 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 		<div class="carousel-container">
 			<div class="carousel-track">
 				<? for ($i = 0; $i < 2; $i++): ?>
-					<? foreach ($warehouseCarouselImages as $warehouseCarouselImage): ?>
-						<div class="carousel-card">
-							<img src="<?= htmlspecialcharsbx($warehouseCarouselImage["SRC"]) ?>" alt="<?= htmlspecialcharsbx($warehouseCarouselImage["ALT"] ?? "") ?>">
-						</div>
-					<? endforeach ?>
+					<div class="carousel-group">
+						<? foreach ($warehouseCarouselImages as $warehouseCarouselImage): ?>
+							<div class="carousel-card">
+								<img src="<?= htmlspecialcharsbx($warehouseCarouselImage["SRC"]) ?>" alt="<?= htmlspecialcharsbx($warehouseCarouselImage["ALT"] ?? "") ?>">
+							</div>
+						<? endforeach ?>
+					</div>
 				<? endfor ?>
 			</div>
 		</div>

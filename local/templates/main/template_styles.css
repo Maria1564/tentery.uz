@@ -2818,8 +2818,14 @@ a.footer__mail:hover {
 .carousel-track {
   display: flex;
   width: max-content;
-  gap: 30px;
   animation: scroll 50s linear infinite;
+}
+
+.carousel-group {
+  display: flex;
+  gap: 30px;
+  padding-right: 30px;
+  flex-shrink: 0;
 }
 
 @keyframes scroll {
