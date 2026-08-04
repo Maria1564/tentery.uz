@@ -527,6 +527,16 @@ a.site-phone:hover {
   max-width: 720px;
 }
 
+.page-header:has(.warehouse-header__describe) .breadcrumbs {
+  text-align: center;
+}
+
+.page-header:has(.warehouse-header__describe) .page-header__body {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .page-header .b-nav {
   margin-top: 20px;
 }
@@ -2809,7 +2819,7 @@ a.footer__mail:hover {
   display: flex;
   width: max-content;
   gap: 30px;
-  animation: scroll 20s linear infinite;
+  animation: scroll 50s linear infinite;
 }
 
 @keyframes scroll {
@@ -3772,7 +3782,6 @@ a.footer__mail:hover {
 @media screen and (max-width: 860px) {
 
   .page-header__body {
-    flex-direction: column;
     gap: 20px;
   }
 
@@ -4182,10 +4191,6 @@ a.footer__mail:hover {
 
   .page-header {
     padding: 100px 0 30px;
-  }
-
-  .page-header__body {
-    display: block;
   }
 
   .page-header__describe {

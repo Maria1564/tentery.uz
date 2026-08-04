@@ -79,6 +79,7 @@ ob_start();
 	Предоставляем полный комплекс услуг, закрывающий все потребности клиента в процессе использования склада,
 	ангара или быстровозводимого здания.
 </div>
+<button class="button button--blue" type="button" data-fancybox="" data-src="#modal-call">Заказать</button>
 <?
 $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 ?>
