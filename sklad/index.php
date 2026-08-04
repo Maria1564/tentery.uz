@@ -82,6 +82,45 @@ ob_start();
 <?
 $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 ?>
+
+<section class="warehouse-carousel__section">
+	<div class="carousel-container">
+		<div class="carousel-track">
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-2.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
+			</div>
+
+			<!-- duplicate -->
+			 <div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-2.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
+			</div>
+			<div class="carousel-card">
+				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
+			</div>
+		</div>
+	</div>
+</section>
 <? $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"technologies",
@@ -195,12 +234,13 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 	<div class="grid">
 		<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox-video=""
 			data-src="#promo">
-			<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt="" loading="lazy">
+			<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
+				loading="lazy">
 			<button class="button-video about__btn-video"></button>
 		</a>
 		<div id="promo" style="display: none;">
-			<iframe width="900" height="506" src="<?= htmlspecialcharsbx($warehouseVideoLink) ?>" title="Video" frameborder="0"
-				allowfullscreen>
+			<iframe width="900" height="506" src="<?= htmlspecialcharsbx($warehouseVideoLink) ?>" title="Video"
+				frameborder="0" allowfullscreen>
 			</iframe>
 		</div>
 	</div>
@@ -285,8 +325,10 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 			<div class="warehouse-gallery__list swiper-container">
 				<div class="warehouse-gallery__wrapper swiper-wrapper">
 					<? foreach ($warehouseGalleryImages as $warehouseGalleryImage): ?>
-						<a href="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-							<img src="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>" alt="<?= htmlspecialcharsbx($warehouseGalleryImage["ALT"] ?? "") ?>">
+						<a href="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>"
+							class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
+							<img src="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>"
+								alt="<?= htmlspecialcharsbx($warehouseGalleryImage["ALT"] ?? "") ?>">
 						</a>
 					<? endforeach ?>
 				</div>
