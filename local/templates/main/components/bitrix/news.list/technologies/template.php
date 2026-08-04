@@ -17,28 +17,39 @@ $warehouseAdvantages = [];
 $warehouseCardIds = array_column($arResult["ITEMS"], "ID");
 
 if (!empty($warehouseCardIds) && CModule::IncludeModule("iblock")) {
-	$advantagesResult = CIBlockElement::GetList(
-		["SORT" => "ASC", "NAME" => "ASC"],
+	$advantagesIblock = CIBlock::GetList(
+		[],
 		[
-			"IBLOCK_ID" => 45,
-			"ACTIVE" => "Y",
-			"PROPERTY_WAREHOUSE_CARD" => $warehouseCardIds,
+			"TYPE" => "about",
+			"CODE" => "warehouse_advantages",
 		],
-		false,
-		false,
-		["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "PROPERTY_WAREHOUSE_CARD", "PROPERTY_ICON"]
-	);
+		true
+	)->Fetch();
 
-	while ($advantage = $advantagesResult->GetNext()) {
-		$warehouseCardId = (int) $advantage["PROPERTY_WAREHOUSE_CARD_VALUE"];
-		$icon = [];
+	if ($advantagesIblock) {
+		$advantagesResult = CIBlockElement::GetList(
+			["SORT" => "ASC", "NAME" => "ASC"],
+			[
+				"IBLOCK_ID" => (int) $advantagesIblock["ID"],
+				"ACTIVE" => "Y",
+				"PROPERTY_WAREHOUSE_CARD" => $warehouseCardIds,
+			],
+			false,
+			false,
+			["ID", "IBLOCK_ID", "NAME", "PREVIEW_TEXT", "PROPERTY_WAREHOUSE_CARD", "PROPERTY_ICON"]
+		);
 
-		if ((int) $advantage["PROPERTY_ICON_VALUE"] > 0) {
-			$icon = CFile::GetFileArray((int) $advantage["PROPERTY_ICON_VALUE"]);
+		while ($advantage = $advantagesResult->GetNext()) {
+			$warehouseCardId = (int) $advantage["PROPERTY_WAREHOUSE_CARD_VALUE"];
+			$icon = [];
+
+			if ((int) $advantage["PROPERTY_ICON_VALUE"] > 0) {
+				$icon = CFile::GetFileArray((int) $advantage["PROPERTY_ICON_VALUE"]);
+			}
+
+			$advantage["ICON"] = $icon;
+			$warehouseAdvantages[$warehouseCardId][] = $advantage;
 		}
-
-		$advantage["ICON"] = $icon;
-		$warehouseAdvantages[$warehouseCardId][] = $advantage;
 	}
 }
 ?>

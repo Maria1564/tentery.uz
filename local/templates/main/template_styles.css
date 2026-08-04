@@ -528,7 +528,7 @@ a.site-phone:hover {
 }
 
 .page-header:has(.warehouse-header__describe) .breadcrumbs {
-  text-align: center;
+  display: none;
 }
 
 .page-header:has(.warehouse-header__describe) .page-header__body {

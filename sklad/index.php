@@ -7,16 +7,32 @@ $APPLICATION->SetTitle("Склады");
 $warehouseOptionsIds = array();
 $warehousePriceSectionId = 0;
 $warehouseVideoPicture = SITE_TEMPLATE_PATH . "/img/uploads/bg-video.png";
-$warehouseVideoLink = "https://www.youtube.com/embed/VIDEO_ID";
+$warehouseVideoLink = "";
+$warehouseVideo = false;
+$warehouseVideoLocal = array();
 $warehouseGalleryImages = array();
 $warehouseCarouselImages = array();
 
 if (CModule::IncludeModule("iblock")) {
+	$warehouseSettingsIblockId = 0;
+	$warehouseSettingsIblock = CIBlock::GetList(
+		array(),
+		array(
+			"TYPE" => "about",
+			"CODE" => "warehouse_page_settings",
+		),
+		true
+	)->Fetch();
+
+	if ($warehouseSettingsIblock) {
+		$warehouseSettingsIblockId = (int) $warehouseSettingsIblock["ID"];
+	}
+
 	$warehouseSettings = CIBlockElement::GetList(
 		array(),
 		array(
-			"IBLOCK_ID" => 46,
-			"ID" => 883,
+			"IBLOCK_ID" => $warehouseSettingsIblockId,
+			"CODE" => "warehouse-page",
 			"ACTIVE" => "Y",
 		),
 		false,
@@ -26,10 +42,13 @@ if (CModule::IncludeModule("iblock")) {
 			"PROPERTY_WAREHOUSE_PRICE_SECTION",
 			"PROPERTY_WAREHOUSE_VIDEO_PICTURE",
 			"PROPERTY_WAREHOUSE_VIDEO_LINK",
+			"PROPERTY_WAREHOUSE_VIDEO_LOCAL",
 		)
 	);
 
 	if ($warehouseSetting = $warehouseSettings->Fetch()) {
+		$warehouseSettingsElementId = (int) $warehouseSetting["ID"];
+
 		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"] > 0) {
 			$warehousePriceSectionId = (int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"];
 		}
@@ -45,36 +64,82 @@ if (CModule::IncludeModule("iblock")) {
 		if (!empty($warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"])) {
 			$warehouseVideoLink = $warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"];
 		}
-	}
 
-	$warehouseOptions = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_OPTIONS"));
+		$warehouseVideoLocalProperty = CIBlockElement::GetProperty(
+			$warehouseSettingsIblockId,
+			$warehouseSettingsElementId,
+			array(),
+			array("CODE" => "WAREHOUSE_VIDEO_LOCAL")
+		)->Fetch();
 
-	while ($warehouseOption = $warehouseOptions->Fetch()) {
-		if ((int) $warehouseOption["VALUE"] > 0) {
-			$warehouseOptionsIds[] = (int) $warehouseOption["VALUE"];
-		}
-	}
+		if (!empty($warehouseVideoLocalProperty["VALUE"])) {
+			if (is_array($warehouseVideoLocalProperty["VALUE"])) {
+				$warehouseVideoLocal = $warehouseVideoLocalProperty["VALUE"];
+			} else {
+				$warehouseVideoLocalConverted = CIBlockPropertyVideo::ConvertFromDB(
+					array(
+						"USER_TYPE_SETTINGS" => $warehouseVideoLocalProperty["USER_TYPE_SETTINGS"],
+					),
+					array("VALUE" => $warehouseVideoLocalProperty["VALUE"])
+				);
 
-	$warehouseGalleryProperties = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_GALLERY_IMAGES"));
-
-	while ($warehouseGalleryProperty = $warehouseGalleryProperties->Fetch()) {
-		if ((int) $warehouseGalleryProperty["VALUE"] > 0) {
-			$warehouseGalleryImage = CFile::GetFileArray((int) $warehouseGalleryProperty["VALUE"]);
-
-			if (!empty($warehouseGalleryImage["SRC"])) {
-				$warehouseGalleryImages[] = $warehouseGalleryImage;
+				if (is_array($warehouseVideoLocalConverted["VALUE"])) {
+					$warehouseVideoLocal = $warehouseVideoLocalConverted["VALUE"];
+				}
 			}
 		}
-	}
 
-	$warehouseCarouselProperties = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_CAROUSEL_IMAGES"));
+		if ($warehouseVideoLink) {
+			$warehouseVideo = array(
+				"TYPE" => GetVideoType($warehouseVideoLink),
+				"SRC" => $warehouseVideoLink,
+			);
 
-	while ($warehouseCarouselProperty = $warehouseCarouselProperties->Fetch()) {
-		if ((int) $warehouseCarouselProperty["VALUE"] > 0) {
-			$warehouseCarouselImage = CFile::GetFileArray((int) $warehouseCarouselProperty["VALUE"]);
+			if ($warehouseVideo["TYPE"] == "youtube") {
+				$warehouseVideo["CODE"] = GetYoutubeCode($warehouseVideoLink);
+				$warehouseVideo["SRC"] = "https://www.youtube.com/watch?v=" . $warehouseVideo["CODE"];
+			} elseif ($warehouseVideo["TYPE"] == "vk") {
+				$warehouseVideo["CODE"] = GetVKVideoCode($warehouseVideoLink);
+				if ($warehouseVideo["CODE"]) {
+					$warehouseVideo["SRC"] = "https://vk.com/video_ext.php?oid=" . $warehouseVideo["CODE"]["oid"] . "&id=" . $warehouseVideo["CODE"]["id"] . "&hd=2";
+				}
+			} elseif ($warehouseVideo["TYPE"] == "rutube") {
+				$warehouseVideo["CODE"] = GetRutubeCode($warehouseVideoLink);
+				if ($warehouseVideo["CODE"]) {
+					$warehouseVideo["SRC"] = "https://rutube.ru/play/embed/" . $warehouseVideo["CODE"] . "/";
+				}
+			}
+		}
 
-			if (!empty($warehouseCarouselImage["SRC"])) {
-				$warehouseCarouselImages[] = $warehouseCarouselImage;
+		$warehouseOptions = CIBlockElement::GetProperty($warehouseSettingsIblockId, $warehouseSettingsElementId, array("sort" => "asc"), array("CODE" => "WAREHOUSE_OPTIONS"));
+
+		while ($warehouseOption = $warehouseOptions->Fetch()) {
+			if ((int) $warehouseOption["VALUE"] > 0) {
+				$warehouseOptionsIds[] = (int) $warehouseOption["VALUE"];
+			}
+		}
+
+		$warehouseGalleryProperties = CIBlockElement::GetProperty($warehouseSettingsIblockId, $warehouseSettingsElementId, array("sort" => "asc"), array("CODE" => "WAREHOUSE_GALLERY_IMAGES"));
+
+		while ($warehouseGalleryProperty = $warehouseGalleryProperties->Fetch()) {
+			if ((int) $warehouseGalleryProperty["VALUE"] > 0) {
+				$warehouseGalleryImage = CFile::GetFileArray((int) $warehouseGalleryProperty["VALUE"]);
+
+				if (!empty($warehouseGalleryImage["SRC"])) {
+					$warehouseGalleryImages[] = $warehouseGalleryImage;
+				}
+			}
+		}
+
+		$warehouseCarouselProperties = CIBlockElement::GetProperty($warehouseSettingsIblockId, $warehouseSettingsElementId, array("sort" => "asc"), array("CODE" => "WAREHOUSE_CAROUSEL_IMAGES"));
+
+		while ($warehouseCarouselProperty = $warehouseCarouselProperties->Fetch()) {
+			if ((int) $warehouseCarouselProperty["VALUE"] > 0) {
+				$warehouseCarouselImage = CFile::GetFileArray((int) $warehouseCarouselProperty["VALUE"]);
+
+				if (!empty($warehouseCarouselImage["SRC"])) {
+					$warehouseCarouselImages[] = $warehouseCarouselImage;
+				}
 			}
 		}
 	}
@@ -225,17 +290,51 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 </section>
 <section class="warehouse__section">
 	<div class="grid">
-		<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox-video=""
-			data-src="#promo">
-			<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
-				loading="lazy">
-			<button class="button-video about__btn-video"></button>
-		</a>
-		<div id="promo" style="display: none;">
-			<iframe width="900" height="506" src="<?= htmlspecialcharsbx($warehouseVideoLink) ?>" title="Video"
-				frameborder="0" allowfullscreen>
-			</iframe>
-		</div>
+		<? if (!empty($warehouseVideoLocal["path"])): ?>
+			<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox-video=""
+				data-src="#promo">
+				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
+					loading="lazy">
+				<button class="button-video about__btn-video"></button>
+			</a>
+			<div id="promo" style="display: none;">
+				<? $APPLICATION->IncludeComponent(
+					"bitrix:player",
+					"",
+					array(
+						"PLAYER_TYPE" => "auto",
+						"PATH" => $warehouseVideoLocal["path"],
+						"WIDTH" => (int) ($warehouseVideoLocal["width"] ?: 900),
+						"HEIGHT" => (int) ($warehouseVideoLocal["height"] ?: 506),
+						"FILE_TITLE" => $warehouseVideoLocal["title"] ?? "",
+						"FILE_DURATION" => (int) ($warehouseVideoLocal["duration"] ?? 0),
+						"FILE_AUTHOR" => $warehouseVideoLocal["author"] ?? "",
+						"FILE_DATE" => $warehouseVideoLocal["date"] ?? "",
+						"FILE_DESCRIPTION" => $warehouseVideoLocal["desc"] ?? "",
+						"AUTOSTART" => "N",
+						"SHOW_CONTROLS" => "Y",
+						"ALLOW_SWF" => "N",
+						"LOGO_POSITION" => "none",
+					),
+					false,
+					array("HIDE_ICONS" => "Y")
+				); ?>
+			</div>
+		<? elseif ($warehouseVideo && $warehouseVideo["SRC"] && $warehouseVideo["TYPE"] == "youtube"): ?>
+			<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox
+				data-src="<?= htmlspecialcharsbx($warehouseVideo["SRC"]) ?>">
+				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
+					loading="lazy">
+				<button class="button-video about__btn-video"></button>
+			</a>
+		<? elseif ($warehouseVideo && $warehouseVideo["SRC"]): ?>
+			<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox data-type="iframe"
+				data-width="100%" data-height="100%" data-src="<?= htmlspecialcharsbx($warehouseVideo["SRC"]) ?>">
+				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
+					loading="lazy">
+				<button class="button-video about__btn-video"></button>
+			</a>
+		<? endif ?>
 	</div>
 </section>
 <section class="warehouse__section">

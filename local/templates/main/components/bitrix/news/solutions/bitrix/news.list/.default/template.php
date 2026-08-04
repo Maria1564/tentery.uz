@@ -23,7 +23,7 @@ $this->setFrameMode(true);
 				$announcement = $arItem["PROPERTIES"]["announcement"]["~VALUE"] ?? '';
 				$announcement = $announcement ?: $arItem["PREVIEW_TEXT"];
 				if (is_array($announcement)) {
-					$announcement = implode('', $announcement);
+					$announcement = $announcement["TEXT"] ?? '';
 				}
 				?>
 				<div class="grid__col" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
