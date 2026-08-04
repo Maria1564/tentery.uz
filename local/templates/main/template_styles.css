@@ -2743,7 +2743,7 @@ a.footer__mail:hover {
 }
 
 .warehouse-carousel__section {
-  margin: 30px 0 120px;
+  margin-bottom:  120px;
 }
 
 .warehouse-options__list {
@@ -2839,7 +2839,7 @@ a.footer__mail:hover {
 
 .carousel-card {
   flex: 0 0 auto;
-  width: 699px;
+  width: clamp(280px, 48vw, 699px);
   aspect-ratio: 699/460;
   height: auto;
   overflow: hidden;
@@ -2915,9 +2915,17 @@ a.footer__mail:hover {
 }
 
 @media (max-width: 768px) {
-  .warehouse__section,
-  .warehouse-carousel__section {
+  .warehouse__section {
     margin-top: 80px;
+  }
+
+  .warehouse-carousel__section  {
+    margin-bottom: 80px;
+  }
+
+  .carousel-group {
+    gap: 16px;
+    padding-right: 16px;
   }
 
   .warehouse__title {
