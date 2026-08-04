@@ -9,6 +9,7 @@ $warehousePriceSectionId = 0;
 $warehouseVideoPicture = SITE_TEMPLATE_PATH . "/img/uploads/bg-video.png";
 $warehouseVideoLink = "https://www.youtube.com/embed/VIDEO_ID";
 $warehouseGalleryImages = array();
+$warehouseCarouselImages = array();
 
 if (CModule::IncludeModule("iblock")) {
 	$warehouseSettings = CIBlockElement::GetList(
@@ -65,6 +66,18 @@ if (CModule::IncludeModule("iblock")) {
 			}
 		}
 	}
+
+	$warehouseCarouselProperties = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_CAROUSEL_IMAGES"));
+
+	while ($warehouseCarouselProperty = $warehouseCarouselProperties->Fetch()) {
+		if ((int) $warehouseCarouselProperty["VALUE"] > 0) {
+			$warehouseCarouselImage = CFile::GetFileArray((int) $warehouseCarouselProperty["VALUE"]);
+
+			if (!empty($warehouseCarouselImage["SRC"])) {
+				$warehouseCarouselImages[] = $warehouseCarouselImage;
+			}
+		}
+	}
 }
 
 $warehouseOptionsIds = array_values(array_unique($warehouseOptionsIds));
@@ -84,44 +97,21 @@ ob_start();
 $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 ?>
 
-<section class="warehouse-carousel__section">
-	<div class="carousel-container">
-		<div class="carousel-track">
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-2.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
-			</div>
-
-			<!-- duplicate -->
-			 <div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-2.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-1.png" alt="">
-			</div>
-			<div class="carousel-card">
-				<img src="<?= SITE_TEMPLATE_PATH ?>/img/uploads/gallery-3.png" alt="">
+<? if (!empty($warehouseCarouselImages)): ?>
+	<section class="warehouse-carousel__section">
+		<div class="carousel-container">
+			<div class="carousel-track">
+				<? for ($i = 0; $i < 2; $i++): ?>
+					<? foreach ($warehouseCarouselImages as $warehouseCarouselImage): ?>
+						<div class="carousel-card">
+							<img src="<?= htmlspecialcharsbx($warehouseCarouselImage["SRC"]) ?>" alt="<?= htmlspecialcharsbx($warehouseCarouselImage["ALT"] ?? "") ?>">
+						</div>
+					<? endforeach ?>
+				<? endfor ?>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+<? endif ?>
 <? $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"technologies",
