@@ -8,6 +8,7 @@ $warehouseOptionsIds = array();
 $warehousePriceSectionId = 0;
 $warehouseVideoPicture = SITE_TEMPLATE_PATH . "/img/uploads/bg-video.png";
 $warehouseVideoLink = "https://www.youtube.com/embed/VIDEO_ID";
+$warehouseGalleryImages = array();
 
 if (CModule::IncludeModule("iblock")) {
 	$warehouseSettings = CIBlockElement::GetList(
@@ -21,18 +22,13 @@ if (CModule::IncludeModule("iblock")) {
 		false,
 		array(
 			"ID",
-			"PROPERTY_WAREHOUSE_OPTIONS",
 			"PROPERTY_WAREHOUSE_PRICE_SECTION",
 			"PROPERTY_WAREHOUSE_VIDEO_PICTURE",
 			"PROPERTY_WAREHOUSE_VIDEO_LINK",
 		)
 	);
 
-	while ($warehouseSetting = $warehouseSettings->Fetch()) {
-		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_OPTIONS_VALUE"] > 0) {
-			$warehouseOptionsIds[] = (int) $warehouseSetting["PROPERTY_WAREHOUSE_OPTIONS_VALUE"];
-		}
-
+	if ($warehouseSetting = $warehouseSettings->Fetch()) {
 		if ((int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"] > 0) {
 			$warehousePriceSectionId = (int) $warehouseSetting["PROPERTY_WAREHOUSE_PRICE_SECTION_VALUE"];
 		}
@@ -47,6 +43,26 @@ if (CModule::IncludeModule("iblock")) {
 
 		if (!empty($warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"])) {
 			$warehouseVideoLink = $warehouseSetting["PROPERTY_WAREHOUSE_VIDEO_LINK_VALUE"];
+		}
+	}
+
+	$warehouseOptions = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_OPTIONS"));
+
+	while ($warehouseOption = $warehouseOptions->Fetch()) {
+		if ((int) $warehouseOption["VALUE"] > 0) {
+			$warehouseOptionsIds[] = (int) $warehouseOption["VALUE"];
+		}
+	}
+
+	$warehouseGalleryProperties = CIBlockElement::GetProperty(46, 883, array("sort" => "asc"), array("CODE" => "WAREHOUSE_GALLERY_IMAGES"));
+
+	while ($warehouseGalleryProperty = $warehouseGalleryProperties->Fetch()) {
+		if ((int) $warehouseGalleryProperty["VALUE"] > 0) {
+			$warehouseGalleryImage = CFile::GetFileArray((int) $warehouseGalleryProperty["VALUE"]);
+
+			if (!empty($warehouseGalleryImage["SRC"])) {
+				$warehouseGalleryImages[] = $warehouseGalleryImage;
+			}
 		}
 	}
 }
@@ -261,48 +277,21 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 		</div>
 	</div>
 </section>
-<section class="warehouse__section">
-	<div class="grid">
-		<h2 class="warehouse__title">Реализованные проекты</h2>
+<? if (!empty($warehouseGalleryImages)): ?>
+	<section class="warehouse__section">
+		<div class="grid">
+			<h2 class="warehouse__title">Реализованные проекты</h2>
 
-		<div class="warehouse-gallery__list swiper-container">
-			<div class="warehouse-gallery__wrapper swiper-wrapper">
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</a>
-
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</a>
-
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-3.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</a>
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-2.png" alt="">
-			</a>
-
-			<a href="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
-				<img src="<?=SITE_TEMPLATE_PATH?>/img/uploads/gallery-1.png" alt="">
-			</a>
+			<div class="warehouse-gallery__list swiper-container">
+				<div class="warehouse-gallery__wrapper swiper-wrapper">
+					<? foreach ($warehouseGalleryImages as $warehouseGalleryImage): ?>
+						<a href="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>" class="warehouse-gallery__item swiper-slide" data-fancybox="warehouse-gallery">
+							<img src="<?= htmlspecialcharsbx($warehouseGalleryImage["SRC"]) ?>" alt="<?= htmlspecialcharsbx($warehouseGalleryImage["ALT"] ?? "") ?>">
+						</a>
+					<? endforeach ?>
+				</div>
 			</div>
-			
 		</div>
-	</div>
-</section>
+	</section>
+<? endif ?>
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
