@@ -49,7 +49,7 @@ function ShowProps($arProp)
 					}
 					if ($pid=="email")
 					{
-						$v='<a href="mailto:'.$v.'"><b>'.$v.'</b></a>';
+						$v='<a href="mailto:'.$v.'" class="email-gradient-lock"><b>'.$v.'</b></a>';
 					}
 					if ($pid=="social")
 					{

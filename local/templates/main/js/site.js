@@ -39,14 +39,14 @@ window.addEventListener('load', setSingleCategoryCardHeight);
 document.addEventListener('DOMContentLoaded', setSingleCategoryCardHeight);
 setTimeout(setSingleCategoryCardHeight, 100);
 
-const gradientLockedPhones = document.querySelectorAll('.phone-gradient-lock');
-if (gradientLockedPhones.length) {
-    gradientLockedPhones.forEach(phone => {
-        phone.addEventListener('click', e => {
-            if (phone.classList.contains('is-copyable')) return;
+const gradientLockedLinks = document.querySelectorAll('.phone-gradient-lock, .email-gradient-lock');
+if (gradientLockedLinks.length) {
+    gradientLockedLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            if (link.classList.contains('is-copyable')) return;
 
             e.preventDefault();
-            phone.classList.add('is-copyable');
+            link.classList.add('is-copyable');
         });
     });
 }

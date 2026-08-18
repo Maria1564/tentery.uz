@@ -411,6 +411,31 @@ a.form-default__link.phone-gradient-lock {
   color: transparent !important;
 }
 
+a.email-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 28%, rgba(10, 31, 52, 0.22) 50%, rgba(10, 31, 52, 0) 68%, rgba(10, 31, 52, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+}
+
+a.email-gradient-lock:hover {
+  color: transparent;
+}
+
+a.email-gradient-lock.is-copyable,
+a.email-gradient-lock.is-copyable:hover {
+  color: #0A1F34;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  user-select: text;
+}
+
+a.form-default__link.email-gradient-lock {
+  color: transparent !important;
+}
+
 a.footer__phone.phone-gradient-lock {
   color: transparent;
   background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, rgba(255, 255, 255, 0.25) 62%, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0) 100%);
@@ -443,8 +468,12 @@ a.phone-gradient-lock.is-copyable:hover {
 }
 
 a.form-default__link.phone-gradient-lock.is-copyable,
-a.form-default__link.phone-gradient-lock.is-copyable:hover {
+a.form-default__link.phone-gradient-lock.is-copyable:hover,
+a.form-default__link.email-gradient-lock.is-copyable,
+a.form-default__link.email-gradient-lock.is-copyable:hover {
   color: #0A1F34 !important;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 a.footer__phone.phone-gradient-lock.is-copyable,

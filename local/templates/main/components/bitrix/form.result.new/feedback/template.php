@@ -135,7 +135,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 								<div class="form-default__links">
 									<? foreach ($formContacts['emails'] as $email) { ?>
 										<div class="form-default__links-item">
-											<a href="<?= htmlspecialcharsbx($email['href']) ?>" class="form-default__link"><?= htmlspecialcharsbx($email['value']) ?></a>
+											<a href="<?= htmlspecialcharsbx($email['href']) ?>" class="form-default__link email-gradient-lock"><?= htmlspecialcharsbx($email['value']) ?></a>
 										</div>
 									<? } ?>
 								</div>
