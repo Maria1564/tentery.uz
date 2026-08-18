@@ -160,7 +160,13 @@ $arContacts=GetContacts();
 					);
 					?>
 					<div class="grid__col header__col-contacts">
-						<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone header__phone phone-gradient-lock" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
+						<?
+						$headerPhoneText = $arContacts["phones"][0];
+						$headerPhoneVisibleText = preg_replace('/[-\s]*\d{2}$/u', '', $headerPhoneText);
+						$headerPhoneHref = 'tel:+'.only_numbers($headerPhoneText);
+						$headerPhoneTitle = $headerPhoneText.' '.$arContacts["phones_desc"][0];
+						?>
+						<a href="#" class="site-phone header__phone phone-gradient-lock" data-lock-text="<?=base64_encode($headerPhoneText)?>" data-lock-href="<?=base64_encode($headerPhoneHref)?>" data-lock-title="<?=base64_encode($headerPhoneTitle)?>" title="<?=$headerPhoneVisibleText.' '.$arContacts["phones_desc"][0]?>"><?=$headerPhoneVisibleText?></a>
 						<div class="header__buttons">
 							<div class="header__buttonsItem">
 								<button data-fancybox="" data-src="#modal-call" class="button-icon"><svg><use href="#icon-phone"></use></svg></button>

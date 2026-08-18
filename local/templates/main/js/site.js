@@ -46,6 +46,15 @@ if (gradientLockedLinks.length) {
             if (link.classList.contains('is-copyable')) return;
 
             e.preventDefault();
+            if (link.dataset.lockText) {
+                link.textContent = decodeURIComponent(escape(window.atob(link.dataset.lockText)));
+            }
+            if (link.dataset.lockHref) {
+                link.href = decodeURIComponent(escape(window.atob(link.dataset.lockHref)));
+            }
+            if (link.dataset.lockTitle) {
+                link.title = decodeURIComponent(escape(window.atob(link.dataset.lockTitle)));
+            }
             link.classList.add('is-copyable');
         });
     });
