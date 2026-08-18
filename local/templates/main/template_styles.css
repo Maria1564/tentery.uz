@@ -407,6 +407,10 @@ a.phone-gradient-lock:hover {
   color: transparent;
 }
 
+a.form-default__link.phone-gradient-lock {
+  color: transparent !important;
+}
+
 a.phone-gradient-lock.is-copyable {
   color: #0A1F34;
   background: none;
@@ -416,6 +420,11 @@ a.phone-gradient-lock.is-copyable {
 
 a.phone-gradient-lock.is-copyable:hover {
   color: #0A1F34;
+}
+
+a.form-default__link.phone-gradient-lock.is-copyable,
+a.form-default__link.phone-gradient-lock.is-copyable:hover {
+  color: #0A1F34 !important;
 }
 
 .b-img {

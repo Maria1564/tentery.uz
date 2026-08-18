@@ -54,7 +54,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 						<div class="form-default__links">
 							<? foreach ($formContacts['phones'] as $phone) { ?>
 								<div class="form-default__links-item">
-									<a href="<?= htmlspecialcharsbx($phone['href']) ?>" class="form-default__link"><?= htmlspecialcharsbx($phone['value']) ?></a>
+									<a href="<?= htmlspecialcharsbx($phone['href']) ?>" class="form-default__link phone-gradient-lock"><?= htmlspecialcharsbx($phone['value']) ?></a>
 									<? if ($phone['label'] !== '') { ?>
 										<span class="form-default__label"><?= htmlspecialcharsbx($phone['label']) ?></span>
 									<? } ?>
