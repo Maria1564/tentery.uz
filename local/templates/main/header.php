@@ -126,7 +126,7 @@ $arContacts=GetContacts();
 						);?>
 						<div class="header__sidebar-footer">
 							<div class="header__address-mobile"><?=$arContacts["manufacturer_address"]?></div>
-							<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
+							<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone phone-gradient-lock" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
 							<div class="header__mail">
 							    <?if (count($arContacts["email"]) > 1):?>
 							        <button class="header__mailTitle header__mailTitle-sub"><?=$arContacts["email"][0]?></button>

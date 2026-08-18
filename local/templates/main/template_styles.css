@@ -411,6 +411,26 @@ a.form-default__link.phone-gradient-lock {
   color: transparent !important;
 }
 
+a.footer__phone.phone-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, rgba(255, 255, 255, 0.25) 62%, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header__sidebar-footer .site-phone.phone-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, rgba(255, 255, 255, 0.25) 62%, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.phone-gradient-lock b {
+  color: inherit;
+}
+
 a.phone-gradient-lock.is-copyable {
   color: #0A1F34;
   background: none;
@@ -425,6 +445,20 @@ a.phone-gradient-lock.is-copyable:hover {
 a.form-default__link.phone-gradient-lock.is-copyable,
 a.form-default__link.phone-gradient-lock.is-copyable:hover {
   color: #0A1F34 !important;
+}
+
+a.footer__phone.phone-gradient-lock.is-copyable,
+a.footer__phone.phone-gradient-lock.is-copyable:hover {
+  color: #FFFFFF;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.header__sidebar-footer .site-phone.phone-gradient-lock.is-copyable,
+.header__sidebar-footer .site-phone.phone-gradient-lock.is-copyable:hover {
+  color: #FFFFFF;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 .b-img {

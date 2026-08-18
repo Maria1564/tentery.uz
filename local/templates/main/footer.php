@@ -67,7 +67,7 @@
 						);?>
 						<div class="grid__col footer__col-sidebar">
 							<div class="footer__subcol">
-								<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="footer__phone site-phone"><?=$arContacts["phones"][0]?></a>
+								<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="footer__phone site-phone phone-gradient-lock"><?=$arContacts["phones"][0]?></a>
 								<div class="footer__time"><?=$arContacts["worktime_short"]?></div>								
 							</div>
 							<div class="footer__subcol">
