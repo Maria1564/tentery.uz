@@ -39,6 +39,18 @@ window.addEventListener('load', setSingleCategoryCardHeight);
 document.addEventListener('DOMContentLoaded', setSingleCategoryCardHeight);
 setTimeout(setSingleCategoryCardHeight, 100);
 
+const gradientLockedPhones = document.querySelectorAll('.phone-gradient-lock');
+if (gradientLockedPhones.length) {
+    gradientLockedPhones.forEach(phone => {
+        phone.addEventListener('click', e => {
+            if (phone.classList.contains('is-copyable')) return;
+
+            e.preventDefault();
+            phone.classList.add('is-copyable');
+        });
+    });
+}
+
 Fancybox.bind('[data-fancybox]', {
     on: {
         done: function(fancybox, slide) {

@@ -394,6 +394,30 @@ a.site-phone:hover {
   color: #5F7890;
 }
 
+a.phone-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 38%, rgba(10, 31, 52, 0.25) 62%, rgba(10, 31, 52, 0) 82%, rgba(10, 31, 52, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+}
+
+a.phone-gradient-lock:hover {
+  color: transparent;
+}
+
+a.phone-gradient-lock.is-copyable {
+  color: #0A1F34;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  user-select: text;
+}
+
+a.phone-gradient-lock.is-copyable:hover {
+  color: #0A1F34;
+}
+
 .b-img {
   display: block;
   position: relative;
