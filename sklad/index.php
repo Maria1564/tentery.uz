@@ -157,7 +157,7 @@ ob_start();
 	Предоставляем полный комплекс услуг, закрывающий все потребности клиента в процессе использования склада,
 	ангара или быстровозводимого здания.
 </div>
-<button class="button button--blue" type="button" data-fancybox="" data-src="#modal-call">Заказать</button>
+<button class="button button--blue" type="button" data-fancybox="" data-src="#modal-call">Рассчитать стоимость</button>
 <?
 $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 ?>
@@ -295,7 +295,7 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 				data-src="#promo">
 				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
 					loading="lazy">
-				<button class="button-video about__btn-video"></button>
+				<button class="button-video about__btn-video warehouse__btn-video"></button>
 			</a>
 			<div id="promo" style="display: none;">
 				<? $APPLICATION->IncludeComponent(
@@ -325,14 +325,14 @@ $APPLICATION->AddViewContent('page_header_description', ob_get_clean(), 100);
 				data-src="<?= htmlspecialcharsbx($warehouseVideo["SRC"]) ?>">
 				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
 					loading="lazy">
-				<button class="button-video about__btn-video"></button>
+				<button class="button-video about__btn-video warehouse__btn-video"></button>
 			</a>
 		<? elseif ($warehouseVideo && $warehouseVideo["SRC"]): ?>
 			<a class="card-about-gallery b-img b-img--square warehouse-video__wrapper" data-fancybox data-type="iframe"
 				data-width="100%" data-height="100%" data-src="<?= htmlspecialcharsbx($warehouseVideo["SRC"]) ?>">
 				<img src="<?= htmlspecialcharsbx($warehouseVideoPicture) ?>" class="warehouse-video__img" alt=""
 					loading="lazy">
-				<button class="button-video about__btn-video"></button>
+				<button class="button-video about__btn-video warehouse__btn-video"></button>
 			</a>
 		<? endif ?>
 	</div>

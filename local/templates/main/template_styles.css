@@ -2870,8 +2870,21 @@ a.footer__mail:hover {
   color: #0A1F34;
 }
 
+.warehouse__btn-video {
+  width: 100px;
+  height: 100px;
+}
+
+.warehouse__btn-video::after {
+  border: 20px solid transparent;
+  border-left: 32px solid #0A1F34;
+  transform: translate(-50%, -50%);
+  margin-left: 15px;
+  margin-top: 1px;
+}
+
 .warehouse-carousel__section {
-  margin-bottom:  120px;
+  margin-bottom: 120px;
 }
 
 .warehouse-options__list {
@@ -2960,6 +2973,7 @@ a.footer__mail:hover {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -2974,7 +2988,7 @@ a.footer__mail:hover {
   border-radius: 16px;
 }
 
-.carousel-card > img {
+.carousel-card>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2987,6 +3001,19 @@ a.footer__mail:hover {
 
   .warehouse__title {
     margin-bottom: 55px;
+  }
+
+  .warehouse__btn-video {
+    width: 70px;
+    height: 70px;
+  }
+
+  .warehouse__btn-video::after {
+    border: 15px solid transparent;
+    border-left: 22px solid #0A1F34;
+    transform: translate(-50%, -50%);
+    margin-left: 12px;
+    margin-top: 1px;
   }
 }
 
@@ -3026,6 +3053,19 @@ a.footer__mail:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
+
+   .warehouse__btn-video {
+    width: 50px;
+    height: 50px;
+  }
+
+  .warehouse__btn-video::after {
+    border: 7px solid transparent;
+    border-left: 7px solid #0A1F34;
+    transform: translate(0, 0);
+    margin-left: -2px;
+    margin-top: -6px;
+  }
 }
 
 @media (max-width: 860px) {
@@ -3047,7 +3087,7 @@ a.footer__mail:hover {
     margin-top: 80px;
   }
 
-  .warehouse-carousel__section  {
+  .warehouse-carousel__section {
     margin-bottom: 80px;
   }
 
@@ -3107,7 +3147,7 @@ a.footer__mail:hover {
     grid-template-columns: 1fr;
   }
 
-   .warehouse__title {
+  .warehouse__title {
     margin-bottom: 25px;
   }
 }
