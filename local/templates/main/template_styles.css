@@ -396,7 +396,7 @@ a.site-phone:hover {
 
 a.phone-gradient-lock {
   color: transparent;
-  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 38%, rgba(10, 31, 52, 0.25) 62%, rgba(10, 31, 52, 0) 82%, rgba(10, 31, 52, 0) 100%);
+  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 58%, rgba(10, 31, 52, 0.3) 82%, rgba(10, 31, 52, 0) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -413,7 +413,7 @@ a.form-default__link.phone-gradient-lock {
 
 a.email-gradient-lock {
   color: transparent;
-  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 28%, rgba(10, 31, 52, 0.22) 50%, rgba(10, 31, 52, 0) 68%, rgba(10, 31, 52, 0) 100%);
+  background: linear-gradient(90deg, #0A1F34 0%, #0A1F34 58%, rgba(10, 31, 52, 0.3) 82%, rgba(10, 31, 52, 0) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -438,7 +438,7 @@ a.form-default__link.email-gradient-lock {
 
 a.footer__phone.phone-gradient-lock {
   color: transparent;
-  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, rgba(255, 255, 255, 0.25) 62%, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 58%, rgba(255, 255, 255, 0.3) 82%, rgba(255, 255, 255, 0) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -446,7 +446,23 @@ a.footer__phone.phone-gradient-lock {
 
 .header__sidebar-footer .site-phone.phone-gradient-lock {
   color: transparent;
-  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 38%, rgba(255, 255, 255, 0.25) 62%, rgba(255, 255, 255, 0) 82%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 58%, rgba(255, 255, 255, 0.3) 82%, rgba(255, 255, 255, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header__sidebar-footer .email-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #5F7890 0%, #5F7890 58%, rgba(95, 120, 144, 0.3) 82%, rgba(95, 120, 144, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a.footer__mail.email-gradient-lock {
+  color: transparent;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 35%, rgba(255, 255, 255, 0.35) 68%, rgba(255, 255, 255, 0) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -486,6 +502,22 @@ a.footer__phone.phone-gradient-lock.is-copyable:hover {
 .header__sidebar-footer .site-phone.phone-gradient-lock.is-copyable,
 .header__sidebar-footer .site-phone.phone-gradient-lock.is-copyable:hover {
   color: #FFFFFF;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.header__sidebar-footer .email-gradient-lock.is-copyable,
+.header__sidebar-footer .email-gradient-lock.is-copyable:hover {
+  color: #5F7890;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+a.footer__mail.email-gradient-lock.is-copyable,
+a.footer__mail.email-gradient-lock.is-copyable:hover {
+  color: #FFFFFF;
+  font-family: "Ping LCG Bold";
+  font-weight: 700;
   background: none;
   -webkit-text-fill-color: currentColor;
 }
@@ -4814,6 +4846,18 @@ a.footer__mail:hover {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+a.footer__mail.email-gradient-lock:not(.is-copyable) {
+  display: inline-block;
+  width: fit-content;
+  font-family: "Ping LCG Bold";
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 45%, rgba(255, 255, 255, 0.18) 72%, rgba(255, 255, 255, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @media only screen and (min-device-width: 421px) and (max-device-width: 860px) {

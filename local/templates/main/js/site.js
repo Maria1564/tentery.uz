@@ -47,7 +47,13 @@ if (gradientLockedLinks.length) {
 
             e.preventDefault();
             if (link.dataset.lockText) {
-                link.textContent = decodeURIComponent(escape(window.atob(link.dataset.lockText)));
+                const text = decodeURIComponent(escape(window.atob(link.dataset.lockText)));
+                const textHolder = link.querySelector('b, span');
+                if (textHolder) {
+                    textHolder.textContent = text;
+                } else {
+                    link.textContent = text;
+                }
             }
             if (link.dataset.lockHref) {
                 link.href = decodeURIComponent(escape(window.atob(link.dataset.lockHref)));

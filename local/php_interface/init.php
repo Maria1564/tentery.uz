@@ -130,4 +130,149 @@ function GetRutubeCode($url)
 	preg_match($pattern, $url, $matches);
 	return (isset($matches[2])) ? $matches[2] : false;
 }
+
+function TenterySpamSecret()
+{
+	return md5($_SERVER["DOCUMENT_ROOT"] . "|tentery_spam_guard");
+}
+
+function TenterySpamEnsureSession()
+{
+	if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+		session_start();
+	}
+}
+
+function TenterySpamToken($formId, $startedAt, $nonce)
+{
+	return hash_hmac("sha256", (string)$formId . "|" . (int)$startedAt . "|" . (string)$nonce, TenterySpamSecret());
+}
+
+function TenterySpamData($formId)
+{
+	TenterySpamEnsureSession();
+
+	$formKey = (string)$formId;
+	$startedAt = time();
+	$nonce = bin2hex(random_bytes(16));
+
+	if (!isset($_SESSION["tentery_spam_tokens"]) || !is_array($_SESSION["tentery_spam_tokens"])) {
+		$_SESSION["tentery_spam_tokens"] = [];
+	}
+
+	if (!isset($_SESSION["tentery_spam_tokens"][$formKey]) || !is_array($_SESSION["tentery_spam_tokens"][$formKey])) {
+		$_SESSION["tentery_spam_tokens"][$formKey] = [];
+	}
+
+	$_SESSION["tentery_spam_tokens"][$formKey][$nonce] = $startedAt;
+
+	return [
+		"started" => $startedAt,
+		"nonce" => $nonce,
+		"token" => TenterySpamToken($formId, $startedAt, $nonce),
+	];
+}
+
+function TenterySpamFields($formId)
+{
+	$spamData = TenterySpamData($formId);
+	?>
+	<div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+		<label>Company</label>
+		<input type="text" name="as_company" value="" tabindex="-1" autocomplete="off">
+	</div>
+	<input type="hidden" name="as_started" value="<?=$spamData["started"]?>">
+	<input type="hidden" name="as_nonce" value="<?=$spamData["nonce"]?>">
+	<input type="hidden" name="as_token" value="<?=$spamData["token"]?>">
+	<?
+}
+
+function TenterySpamIsBlocked($formId, $values)
+{
+	$validatedKey = (string)$formId;
+	if (!empty($GLOBALS["TENTERY_SPAM_VALIDATED"][$validatedKey])) {
+		return false;
+	}
+
+	if (!empty($values["as_company"])) {
+		return true;
+	}
+
+	$startedAt = isset($values["as_started"]) ? (int)$values["as_started"] : 0;
+	$nonce = isset($values["as_nonce"]) ? (string)$values["as_nonce"] : "";
+	$token = isset($values["as_token"]) ? (string)$values["as_token"] : "";
+
+	if (!$startedAt || !$nonce || !$token) {
+		return true;
+	}
+
+	TenterySpamEnsureSession();
+	$formKey = (string)$formId;
+	$sessionStartedAt = $_SESSION["tentery_spam_tokens"][$formKey][$nonce] ?? 0;
+
+	if (!$sessionStartedAt || (int)$sessionStartedAt !== $startedAt) {
+		return true;
+	}
+
+	$age = time() - $startedAt;
+	if ($age < 3 || $age > 86400) {
+		return true;
+	}
+
+	unset($_SESSION["tentery_spam_tokens"][$formKey][$nonce]);
+
+	if (!hash_equals(TenterySpamToken($formId, $startedAt, $nonce), $token)) {
+		return true;
+	}
+
+	return false;
+}
+
+function TenterySpamRateLimited($formId)
+{
+	$ip = preg_replace('/[^0-9a-fA-F:\.]/', '', $_SERVER['REMOTE_ADDR'] ?? 'unknown');
+	$file = sys_get_temp_dir() . '/tentery_form_' . md5($formId . '|' . $ip) . '.txt';
+	$now = time();
+
+	if (is_file($file)) {
+		$last = (int)file_get_contents($file);
+		if ($last && ($now - $last) < 20) {
+			return true;
+		}
+	}
+
+	file_put_contents($file, (string)$now, LOCK_EX);
+	return false;
+}
+
+AddEventHandler("form", "onBeforeResultAdd", "TenteryOnBeforeFormResultAdd");
+function TenteryOnBeforeFormResultAdd($WEB_FORM_ID, &$arFields, &$arrVALUES)
+{
+	if (TenterySpamIsBlocked($WEB_FORM_ID, $_POST) || TenterySpamRateLimited($WEB_FORM_ID)) {
+		global $APPLICATION;
+		$APPLICATION->ThrowException("Spam protection");
+		return false;
+	}
+
+	return true;
+}
+
+if (
+	($_SERVER["REQUEST_METHOD"] ?? "") === "POST"
+	&& (isset($_POST["WEB_FORM_ID"]) || isset($_POST["web_form_submit"]))
+) {
+	$tenteryPostFormId = isset($_POST["WEB_FORM_ID"]) ? (int)$_POST["WEB_FORM_ID"] : 0;
+
+	if (
+		!$tenteryPostFormId
+		|| TenterySpamIsBlocked($tenteryPostFormId, $_POST)
+		|| TenterySpamRateLimited($tenteryPostFormId)
+	) {
+		http_response_code(403);
+		echo "Spam protection";
+		die();
+	}
+
+	$GLOBALS["TENTERY_SPAM_VALIDATED"][(string)$tenteryPostFormId] = true;
+}
 ?>

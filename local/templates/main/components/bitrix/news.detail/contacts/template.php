@@ -33,10 +33,14 @@ function ShowProps($arProp)
 				<?foreach($arProperty["DISPLAY_VALUE"] as $k=>$v):?>
 					<?if ($pid=="phones")
 					{
+						$phoneText = $v;
+						$phoneVisibleText = preg_replace('/[-\s]*\d{2}$/u', '', $phoneText);
+						$phoneHref = 'tel:+'.only_numbers($phoneText);
+						$phoneTitle = $phoneText . ($arProperty["DESCRIPTION"][$k] ? ' ' . strip_tags($arProperty["DESCRIPTION"][$k]) : '');
 					
 						if (stripos('WhatsApp', $arProperty["DESCRIPTION"][$k])!==false)
 						{
-							$arProperty["DESCRIPTION"][$k]='<a href="https://wapp.click/'.only_numbers($v).'">'.$arProperty["DESCRIPTION"][$k].'</a>';
+							$arProperty["DESCRIPTION"][$k]='<a href="https://wapp.click/'.only_numbers($phoneText).'">'.$arProperty["DESCRIPTION"][$k].'</a>';
 						}
 						if (preg_match('/(\@[A-Za-z_\-]+)/',$arProperty["DESCRIPTION"][$k]))
 						//if (stripos('Telegram', $arProperty["DESCRIPTION"][$k])!==false && strpos('@', $arProperty["DESCRIPTION"][$k])!==false)
@@ -44,12 +48,15 @@ function ShowProps($arProp)
 							$arProperty["DESCRIPTION"][$k]= preg_replace('/\@([A-Za-z_\-]+)/', '<a href="https://t.me/$1" target="__blank">@$1</a>', $arProperty["DESCRIPTION"][$k]);
 						}
 							
-						$v='<a href="tel:+'.only_numbers($v).'" class="phone-gradient-lock"><b>'.$v.'</b></a>';
+						$v='<a href="#" class="phone-gradient-lock" data-lock-text="'.htmlspecialcharsbx(base64_encode($phoneText)).'" data-lock-href="'.htmlspecialcharsbx(base64_encode($phoneHref)).'" data-lock-title="'.htmlspecialcharsbx(base64_encode($phoneTitle)).'" title="'.htmlspecialcharsbx($phoneVisibleText . ($arProperty["DESCRIPTION"][$k] ? ' ' . strip_tags($arProperty["DESCRIPTION"][$k]) : '')).'"><b>'.$phoneVisibleText.'</b></a>';
 						
 					}
 					if ($pid=="email")
 					{
-						$v='<a href="mailto:'.$v.'" class="email-gradient-lock"><b>'.$v.'</b></a>';
+						$emailText = $v;
+						$emailVisibleText = mb_substr($emailText, 0, 9);
+						$emailHref = 'mailto:'.$emailText;
+						$v='<a href="#" class="email-gradient-lock" data-lock-text="'.htmlspecialcharsbx(base64_encode($emailText)).'" data-lock-href="'.htmlspecialcharsbx(base64_encode($emailHref)).'" data-lock-title="'.htmlspecialcharsbx(base64_encode($emailText)).'" title="'.htmlspecialcharsbx($emailVisibleText).'"><b>'.$emailVisibleText.'</b></a>';
 					}
 					if ($pid=="social")
 					{

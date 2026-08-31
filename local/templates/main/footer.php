@@ -67,11 +67,21 @@
 						);?>
 						<div class="grid__col footer__col-sidebar">
 							<div class="footer__subcol">
-								<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="footer__phone site-phone phone-gradient-lock"><?=$arContacts["phones"][0]?></a>
+								<?
+								$footerPhoneText = $arContacts["phones"][0];
+								$footerPhoneVisibleText = preg_replace('/[-\s]*\d{2}$/u', '', $footerPhoneText);
+								$footerPhoneHref = 'tel:+'.only_numbers($footerPhoneText);
+								?>
+								<a href="#" class="footer__phone site-phone phone-gradient-lock" data-lock-text="<?=base64_encode($footerPhoneText)?>" data-lock-href="<?=base64_encode($footerPhoneHref)?>"><?=$footerPhoneVisibleText?></a>
 								<div class="footer__time"><?=$arContacts["worktime_short"]?></div>								
 							</div>
 							<div class="footer__subcol">
-								<a href="mailto:<?=$arContacts["email"][0]?>" class="footer__mail" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["email"][0]?></a>
+								<?
+								$footerEmailText = $arContacts["email"][0];
+								$footerEmailVisibleText = mb_substr($footerEmailText, 0, 9);
+								$footerEmailHref = 'mailto:'.$footerEmailText;
+								?>
+								<a href="#" class="footer__mail email-gradient-lock" data-lock-text="<?=base64_encode($footerEmailText)?>" data-lock-href="<?=base64_encode($footerEmailHref)?>" data-lock-title="<?=base64_encode($footerEmailText)?>" title="<?=$footerEmailVisibleText?>"><?=$footerEmailVisibleText?></a>
 								<ul class="footer__addreses">
 									<?foreach($arContacts["addresses"] as $k=>$address):?>
 										<li><?=($arContacts["addresses_desc"][$k] ? $arContacts["addresses_desc"][$k].': ' : '').$address?></li>
@@ -148,6 +158,50 @@
 </div>
 */?>
 <script>
+	<?
+	$s2crmSpamData = TenterySpamData('s2crm');
+	?>
+	const tenterySpamFields = {
+		started: '<?=$s2crmSpamData["started"]?>',
+		nonce: '<?=$s2crmSpamData["nonce"]?>',
+		token: '<?=$s2crmSpamData["token"]?>'
+	};
+
+	function addTenterySpamFields(form) {
+		if (!form || form.querySelector('[name="as_token"]')) return;
+
+		const honeypot = document.createElement('input');
+		honeypot.type = 'text';
+		honeypot.name = 'as_company';
+		honeypot.value = '';
+		honeypot.tabIndex = -1;
+		honeypot.autocomplete = 'off';
+		honeypot.style.position = 'absolute';
+		honeypot.style.left = '-9999px';
+
+		const started = document.createElement('input');
+		started.type = 'hidden';
+		started.name = 'as_started';
+		started.value = tenterySpamFields.started;
+
+		const nonce = document.createElement('input');
+		nonce.type = 'hidden';
+		nonce.name = 'as_nonce';
+		nonce.value = tenterySpamFields.nonce;
+
+		const token = document.createElement('input');
+		token.type = 'hidden';
+		token.name = 'as_token';
+		token.value = tenterySpamFields.token;
+
+		form.appendChild(honeypot);
+		form.appendChild(started);
+		form.appendChild(nonce);
+		form.appendChild(token);
+	}
+
+	document.querySelectorAll('form.s2, form.bottom-form').forEach(addTenterySpamFields);
+
 	//$(document).ready(function() {
     // Select all forms and attach a submit handler
 	//$("form.s2").submit(function(event) {

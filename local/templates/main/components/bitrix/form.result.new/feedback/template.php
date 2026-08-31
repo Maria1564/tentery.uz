@@ -68,6 +68,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 
 						<div class="form-default__footer">
 							<input type="hidden" name="web_form_submit" value="Y">
+							<?TenterySpamFields($arResult["arForm"]["ID"]);?>
 							<button class="button button--blue" type="submit"
 								name="submit"><?= htmlspecialcharsbx(trim($arResult["arForm"]["BUTTON"]) == '' ? GetMessage("FORM_ADD") : $arResult["arForm"]["BUTTON"]); ?></button>
 							<div class="confidence"><?= GetMessage('FORM_CONFIDENCE') ?></div>
@@ -118,8 +119,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 								<h4 class="form-default__sub-title"><?= htmlspecialcharsbx($formContactText['phone']) ?></h4>
 								<div class="form-default__links">
 									<? foreach ($formContacts['phones'] as $phone) { ?>
+										<?
+										$phoneVisibleText = preg_replace('/[-\s]*\d{2}$/u', '', $phone['value']);
+										$phoneTitle = $phone['value'] . ($phone['label'] !== '' ? ' ' . $phone['label'] : '');
+										?>
 										<div class="form-default__links-item">
-											<a href="<?= htmlspecialcharsbx($phone['href']) ?>" class="form-default__link phone-gradient-lock"><?= htmlspecialcharsbx($phone['value']) ?></a>
+											<a href="#" class="form-default__link phone-gradient-lock" data-lock-text="<?= htmlspecialcharsbx(base64_encode($phone['value'])) ?>" data-lock-href="<?= htmlspecialcharsbx(base64_encode($phone['href'])) ?>" data-lock-title="<?= htmlspecialcharsbx(base64_encode($phoneTitle)) ?>" title="<?= htmlspecialcharsbx($phoneVisibleText . ($phone['label'] !== '' ? ' ' . $phone['label'] : '')) ?>"><?= htmlspecialcharsbx($phoneVisibleText) ?></a>
 											<? if ($phone['label'] !== '') { ?>
 												<span class="form-default__label"><?= htmlspecialcharsbx($phone['label']) ?></span>
 											<? } ?>
@@ -134,8 +139,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 								<h4 class="form-default__sub-title"><?= htmlspecialcharsbx($formContactText['email']) ?></h4>
 								<div class="form-default__links">
 									<? foreach ($formContacts['emails'] as $email) { ?>
+										<?
+										$emailVisibleText = mb_substr($email['value'], 0, 9);
+										?>
 										<div class="form-default__links-item">
-											<a href="<?= htmlspecialcharsbx($email['href']) ?>" class="form-default__link email-gradient-lock"><?= htmlspecialcharsbx($email['value']) ?></a>
+											<a href="#" class="form-default__link email-gradient-lock" data-lock-text="<?= htmlspecialcharsbx(base64_encode($email['value'])) ?>" data-lock-href="<?= htmlspecialcharsbx(base64_encode($email['href'])) ?>" data-lock-title="<?= htmlspecialcharsbx(base64_encode($email['value'])) ?>" title="<?= htmlspecialcharsbx($emailVisibleText) ?>"><?= htmlspecialcharsbx($emailVisibleText) ?></a>
 										</div>
 									<? } ?>
 								</div>

@@ -126,22 +126,38 @@ $arContacts=GetContacts();
 						);?>
 						<div class="header__sidebar-footer">
 							<div class="header__address-mobile"><?=$arContacts["manufacturer_address"]?></div>
-							<a href="tel:+<?=only_numbers($arContacts["phones"][0])?>" class="site-phone phone-gradient-lock" title="<?=$arContacts["phones"][0].' '.$arContacts["phones_desc"][0]?>"><?=$arContacts["phones"][0]?></a>
+							<?
+							$sidebarPhoneText = $arContacts["phones"][0];
+							$sidebarPhoneVisibleText = preg_replace('/[-\s]*\d{2}$/u', '', $sidebarPhoneText);
+							$sidebarPhoneHref = 'tel:+'.only_numbers($sidebarPhoneText);
+							$sidebarPhoneTitle = $sidebarPhoneText.' '.$arContacts["phones_desc"][0];
+							?>
+							<a href="#" class="site-phone phone-gradient-lock" data-lock-text="<?=base64_encode($sidebarPhoneText)?>" data-lock-href="<?=base64_encode($sidebarPhoneHref)?>" data-lock-title="<?=base64_encode($sidebarPhoneTitle)?>" title="<?=$sidebarPhoneVisibleText.' '.$arContacts["phones_desc"][0]?>"><?=$sidebarPhoneVisibleText?></a>
 							<div class="header__mail">
 							    <?if (count($arContacts["email"]) > 1):?>
 							        <button class="header__mailTitle header__mailTitle-sub"><?=$arContacts["email"][0]?></button>
 							        <ul class="header__mailDrop">
 							            <?foreach($arContacts["email"] as $k => $email):?>
+											<?
+											$sidebarEmailVisibleText = mb_substr($email, 0, 9);
+											$sidebarEmailHref = 'mailto:'.$email;
+											$sidebarEmailTitle = $email . ($arContacts["email_desc"][$k] ? ' ' . $arContacts["email_desc"][$k] : '');
+											?>
 							                <li>
-							                    <a href="mailto:<?=$email?>">
-							                        <span><?=$email?></span> <?=$arContacts["email_desc"][$k]?>
+							                    <a href="#" class="email-gradient-lock" data-lock-text="<?=base64_encode($email)?>" data-lock-href="<?=base64_encode($sidebarEmailHref)?>" data-lock-title="<?=base64_encode($sidebarEmailTitle)?>" title="<?=$sidebarEmailVisibleText . ($arContacts["email_desc"][$k] ? ' ' . $arContacts["email_desc"][$k] : '')?>">
+							                        <span><?=$sidebarEmailVisibleText?></span> <?=$arContacts["email_desc"][$k]?>
 							                    </a>
 							                </li>
 							            <?endforeach?>
 							        </ul>
 							    <?else:?>
-							        <a href="mailto:<?=$arContacts["email"][0]?>" class="header__mailTitle">
-							            <?=$arContacts["email"][0]?>
+									<?
+									$sidebarEmailText = $arContacts["email"][0];
+									$sidebarEmailVisibleText = mb_substr($sidebarEmailText, 0, 9);
+									$sidebarEmailHref = 'mailto:'.$sidebarEmailText;
+									?>
+							        <a href="#" class="header__mailTitle email-gradient-lock" data-lock-text="<?=base64_encode($sidebarEmailText)?>" data-lock-href="<?=base64_encode($sidebarEmailHref)?>" data-lock-title="<?=base64_encode($sidebarEmailText)?>" title="<?=$sidebarEmailVisibleText?>">
+							            <?=$sidebarEmailVisibleText?>
 							        </a>
 							    <?endif;?>
 							</div>	
