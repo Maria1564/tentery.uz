@@ -25,4 +25,9 @@ return [
         'color' => '#C42525',
         'icon' => SITE_TEMPLATE_PATH . '/img/social/youtube.svg',
     ],
+    'instagram' => [
+        'name' => 'Instagram',
+        'color' => 'linear-gradient(140deg, #6457C6 0%, #E33F69 50%, #FEBA58 100%)',
+        'icon' => SITE_TEMPLATE_PATH . '/img/social/instagram.svg',
+    ],
 ];
