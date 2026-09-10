@@ -2,6 +2,82 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 $this->setFrameMode(true);
+
+if (!function_exists('getWarehouseFirstOfferPrice')) {
+    function getWarehouseFirstOfferPrice($productId, $productIblockId)
+    {
+        if (!CModule::IncludeModule('catalog') || !CModule::IncludeModule('currency')) {
+            return null;
+        }
+
+        $skuInfo = CCatalogSKU::GetInfoByProductIBlock((int) $productIblockId);
+
+        if (empty($skuInfo['IBLOCK_ID']) || empty($skuInfo['SKU_PROPERTY_ID'])) {
+            return null;
+        }
+
+        $offer = CIBlockElement::GetList(
+            array('SORT' => 'ASC', 'ID' => 'ASC'),
+            array(
+                'IBLOCK_ID' => (int) $skuInfo['IBLOCK_ID'],
+                'PROPERTY_' . (int) $skuInfo['SKU_PROPERTY_ID'] => (int) $productId,
+                'ACTIVE' => 'Y',
+            ),
+            false,
+            array('nTopCount' => 1),
+            array('ID')
+        )->Fetch();
+
+        if (!$offer) {
+            return null;
+        }
+
+        $price = CPrice::GetBasePrice((int) $offer['ID']);
+
+        if (!$price) {
+            $price = CPrice::GetList(
+                array('CATALOG_GROUP_ID' => 'ASC'),
+                array('PRODUCT_ID' => (int) $offer['ID'])
+            )->Fetch();
+        }
+
+        if (!$price || (float) $price['PRICE'] <= 0) {
+            return null;
+        }
+
+        return array(
+            'RATIO_PRICE' => (float) $price['PRICE'],
+            'PRINT_RATIO_PRICE' => CurrencyFormat((float) $price['PRICE'], $price['CURRENCY']),
+        );
+    }
+}
+
+if (!function_exists('getWarehouseProductBasePrice')) {
+    function getWarehouseProductBasePrice($productId)
+    {
+        if (!CModule::IncludeModule('catalog') || !CModule::IncludeModule('currency')) {
+            return null;
+        }
+
+        $price = CPrice::GetBasePrice((int) $productId);
+
+        if (!$price) {
+            $price = CPrice::GetList(
+                array('CATALOG_GROUP_ID' => 'ASC'),
+                array('PRODUCT_ID' => (int) $productId)
+            )->Fetch();
+        }
+
+        if (!$price || (float) $price['PRICE'] <= 0) {
+            return null;
+        }
+
+        return array(
+            'RATIO_PRICE' => (float) $price['PRICE'],
+            'PRINT_RATIO_PRICE' => CurrencyFormat((float) $price['PRICE'], $price['CURRENCY']),
+        );
+    }
+}
 ?>
 
 <?foreach($arResult["ITEMS"] as $arElement):?>
@@ -27,7 +103,27 @@ $this->setFrameMode(true);
         $actualItem = $arElement;
     }
 
-    $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
+    $price = array();
+
+    if (isset($actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']])) {
+        $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
+    }
+
+    if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
+        $offerPrice = getWarehouseFirstOfferPrice($arElement['ID'], $arParams["IBLOCK_ID"]);
+
+        if ($offerPrice) {
+            $price = $offerPrice;
+        }
+    }
+
+    if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
+        $productPrice = getWarehouseProductBasePrice($arElement['ID']);
+
+        if ($productPrice) {
+            $price = $productPrice;
+        }
+    }
     ?>
 
     <a href="<?=$arElement["DETAIL_PAGE_URL"]?>"
@@ -67,7 +163,7 @@ $this->setFrameMode(true);
                 </div>
             <?endforeach?>
 
-            <?if ($price["RATIO_PRICE"]==0):?>
+            <?if (empty($price) || (float) $price["RATIO_PRICE"] <= 0):?>
                 <div class="card-category__cost">Цена по запросу</div>
             <?else:?>
                 <div class="card-category__cost">
