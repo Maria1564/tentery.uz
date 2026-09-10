@@ -80,103 +80,105 @@ if (!function_exists('getWarehouseProductBasePrice')) {
 }
 ?>
 
-<?foreach($arResult["ITEMS"] as $arElement):?>
-    <?
-    $this->AddEditAction(
-        $arElement['ID'],
-        $arElement['EDIT_LINK'],
-        CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT")
-    );
+<div class="warehouse-prices__list">
+    <?foreach($arResult["ITEMS"] as $arElement):?>
+        <?
+        $this->AddEditAction(
+            $arElement['ID'],
+            $arElement['EDIT_LINK'],
+            CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_EDIT")
+        );
 
-    $this->AddDeleteAction(
-        $arElement['ID'],
-        $arElement['DELETE_LINK'],
-        CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"),
-        array("CONFIRM" => GetMessage('CT_BCST_ELEMENT_DELETE_CONFIRM'))
-    );
+        $this->AddDeleteAction(
+            $arElement['ID'],
+            $arElement['DELETE_LINK'],
+            CIBlock::GetArrayByID($arParams["IBLOCK_ID"], "ELEMENT_DELETE"),
+            array("CONFIRM" => GetMessage('CT_BCST_ELEMENT_DELETE_CONFIRM'))
+        );
 
-    $haveOffers = !empty($arElement['OFFERS']);
+        $haveOffers = !empty($arElement['OFFERS']);
 
-    if ($haveOffers) {
-        $actualItem = $arElement['OFFERS'][$arResult['OFFERS_SELECTED']] ?? reset($arElement['OFFERS']);
-    } else {
-        $actualItem = $arElement;
-    }
-
-    $price = array();
-
-    if (isset($actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']])) {
-        $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
-    }
-
-    if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
-        $offerPrice = getWarehouseFirstOfferPrice($arElement['ID'], $arParams["IBLOCK_ID"]);
-
-        if ($offerPrice) {
-            $price = $offerPrice;
+        if ($haveOffers) {
+            $actualItem = $arElement['OFFERS'][$arResult['OFFERS_SELECTED']] ?? reset($arElement['OFFERS']);
+        } else {
+            $actualItem = $arElement;
         }
-    }
 
-    if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
-        $productPrice = getWarehouseProductBasePrice($arElement['ID']);
+        $price = array();
 
-        if ($productPrice) {
-            $price = $productPrice;
+        if (isset($actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']])) {
+            $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
         }
-    }
-    ?>
 
-    <a href="<?=$arElement["DETAIL_PAGE_URL"]?>"
-       class="card-category"
-       id="<?=$this->GetEditAreaId($arElement['ID']);?>">
+        if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
+            $offerPrice = getWarehouseFirstOfferPrice($arElement['ID'], $arParams["IBLOCK_ID"]);
 
-        <div class="card-category__img b-img">
-            <?if(is_array($arElement["PREVIEW_PICTURE"])):?>
-                <img src="<?=$arElement["PREVIEW_PICTURE"]["SRC"]?>"
-                     width="<?=$arElement["PREVIEW_PICTURE"]["WIDTH"]?>"
-                     height="<?=$arElement["PREVIEW_PICTURE"]["HEIGHT"]?>"
-                     alt="<?=$arElement["PREVIEW_PICTURE"]["ALT"]?>"
-                     title="<?=$arElement["PREVIEW_PICTURE"]["TITLE"]?>"
-                     loading="lazy">
-            <?endif?>
-        </div>
+            if ($offerPrice) {
+                $price = $offerPrice;
+            }
+        }
 
-        <div class="card-category__content">
-            <h3 class="card-category__title">
-                <?=$arElement["NAME"]?>
-            </h3>
+        if (empty($price) || (float) $price["RATIO_PRICE"] <= 0) {
+            $productPrice = getWarehouseProductBasePrice($arElement['ID']);
 
-            <div class="card-category__txt">
-                <?=$arElement["PREVIEW_TEXT"]?>
+            if ($productPrice) {
+                $price = $productPrice;
+            }
+        }
+        ?>
+
+        <a href="<?=$arElement["DETAIL_PAGE_URL"]?>"
+           class="card-category"
+           id="<?=$this->GetEditAreaId($arElement['ID']);?>">
+
+            <div class="card-category__img b-img">
+                <?if(is_array($arElement["PREVIEW_PICTURE"])):?>
+                    <img src="<?=$arElement["PREVIEW_PICTURE"]["SRC"]?>"
+                         width="<?=$arElement["PREVIEW_PICTURE"]["WIDTH"]?>"
+                         height="<?=$arElement["PREVIEW_PICTURE"]["HEIGHT"]?>"
+                         alt="<?=$arElement["PREVIEW_PICTURE"]["ALT"]?>"
+                         title="<?=$arElement["PREVIEW_PICTURE"]["TITLE"]?>"
+                         loading="lazy">
+                <?endif?>
             </div>
 
-            <?foreach($arElement["DISPLAY_PROPERTIES"] as $arProp):?>
-                <?if ($arProp["CODE"]=="square") {
-                    $arProp["DISPLAY_VALUE"] = str_replace(
-                        ["m2", "м2"],
-                        ["m<sup>2</sup>", "м<sup>2</sup>"],
-                        $arProp["DISPLAY_VALUE"]
-                    );
-                }?>
-                <div class="card-category__size">
-                    <?=$arProp["DISPLAY_VALUE"]?>
-                </div>
-            <?endforeach?>
+            <div class="card-category__content">
+                <h3 class="card-category__title">
+                    <?=$arElement["NAME"]?>
+                </h3>
 
-            <?if (empty($price) || (float) $price["RATIO_PRICE"] <= 0):?>
-                <div class="card-category__cost">Цена по запросу</div>
-            <?else:?>
-                <div class="card-category__cost">
-                    от <?=$price["PRINT_RATIO_PRICE"]?>
+                <div class="card-category__txt">
+                    <?=$arElement["PREVIEW_TEXT"]?>
                 </div>
-            <?endif?>
 
-            <div class="card-category__more button-more">
-                Подробнее
-                <svg>
-                    <use xlink:href="#icon-angle-r"></use>
-                </svg>
+                <?foreach($arElement["DISPLAY_PROPERTIES"] as $arProp):?>
+                    <?if ($arProp["CODE"]=="square") {
+                        $arProp["DISPLAY_VALUE"] = str_replace(
+                            ["m2", "м2"],
+                            ["m<sup>2</sup>", "м<sup>2</sup>"],
+                            $arProp["DISPLAY_VALUE"]
+                        );
+                    }?>
+                    <div class="card-category__size">
+                        <?=$arProp["DISPLAY_VALUE"]?>
+                    </div>
+                <?endforeach?>
+
+                <?if (empty($price) || (float) $price["RATIO_PRICE"] <= 0):?>
+                    <div class="card-category__cost">Цена по запросу</div>
+                <?else:?>
+                    <div class="card-category__cost">
+                        от <?=$price["PRINT_RATIO_PRICE"]?>
+                    </div>
+                <?endif?>
+
+                <div class="card-category__more button-more">
+                    Подробнее
+                    <svg>
+                        <use xlink:href="#icon-angle-r"></use>
+                    </svg>
+                </div>
             </div>
-        </div>
-    </a>
-<?endforeach?>
+        </a>
+    <?endforeach?>
+</div>

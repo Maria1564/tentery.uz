@@ -2918,6 +2918,11 @@ a.footer__mail:hover {
   gap: 20px;
 }
 
+.warehouse-options__list .card-option,
+.warehouse-options__list .card-option * {
+  cursor: default;
+}
+
 .warehouse-video__wrapper {
   width: 100%;
   height: auto;
