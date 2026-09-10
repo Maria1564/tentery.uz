@@ -1060,6 +1060,31 @@ a.button-small--icon svg,
   transition: opacity 0.1s ease;
 }
 
+#promo .video-js,
+#promo .ui-video-player,
+#promo video {
+  width: min(1200px, calc(100vw - 40px)) !important;
+  max-width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+#promo .video-js .vjs-tech,
+#promo .ui-video-player .vjs-tech {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  #promo .video-js,
+  #promo .ui-video-player,
+  #promo video {
+    width: calc(100vw - 24px) !important;
+  }
+}
+
 #promo .f-button.is-close-btn {
   top: 0px;
   right: 0px;
